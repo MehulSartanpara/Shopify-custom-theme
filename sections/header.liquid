@@ -1,0 +1,493 @@
+{% assign logo_position = section.settings.logo_position %}
+{% capture header_logo %}
+{% if section.settings.logo_image != blank %}
+   <a href="/">
+     <img src="{{ section.settings.logo_image | img_url: 'master' }}" />
+   </a>
+{% endif %}  
+{% endcapture %}  
+<div class="{% if section.settings.sticky %}shopify-section-header{% endif %} ">
+<header class="header-for-desktop" data-url="{{ page.url }}">
+  <div class="header">
+    <div class="header-container header" id="myHeader">
+      <div class="container">
+        <div class="header-content">
+          <div class="header-search-bar {% if logo_position == 'center' %}order1{% elsif logo_position == 'right' %}position1{% endif %}">
+             {% if logo_position == 'menu_logo_center' %}
+               {% if section.settings.enable_search %}
+               <div class="header--search--icon"> 
+                <a href="javascript:void(0)" class="search--model--open">
+                  {% render 'search-icon' %}
+                </a>  
+                <div class="search__model">
+                  <div class="search-modal modal__content gradient" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+                    <div class="modal-overlay"></div>
+                    <div class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}" tabindex="-1">
+                        <predictive-search>
+                          <form action="{{ routes.search_url }}" method="get" role="search">
+                            <input
+                              id="Search"
+                              type="text"
+                              placeholder="Search"
+                              name="q"
+                              value="{{ search.terms | escape }}"
+                                role="combobox"
+                                aria-expanded="false"
+                                aria-owns="predictive-search-results-list"
+                                aria-controls="predictive-search-results-list"
+                                aria-haspopup="listbox"
+                                aria-autocomplete="list"
+                                autocorrect="off"
+                                autocomplete="off"
+                                autocapitalize="off"
+                                spellcheck="false"
+                            >
+                            <input name="options[prefix]" type="hidden" value="last">
+                        
+                              <div id="predictive-search" tabindex="-1"></div>
+                            <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">  
+                              <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill:#fff;" width="28px" height="28px" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 487.95 487.95" style="enable-background:new 0 0 487.95 487.95;" xml:space="preserve"><g><g><path d="M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1    c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4    c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"/></g></g></svg>
+                            </button>
+                          </form>
+                        </predictive-search>
+                      <button type="button" class="modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+                        <svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            {% endif %}
+             {% elsif logo_position == 'left' or logo_position == 'center' or logo_position == 'right' %}
+               {{ header_logo }}
+             {% endif %}
+          </div>
+         <div class="header-links-and-log {% if logo_position == 'center' %}order2{% elsif logo_position == 'right' %}position2{% endif %}">
+            {%- assign menu = section.settings.menu -%}
+            <ul>
+              {%- for link in linklists[menu].links limit:2 -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>                            
+              {%- endfor -%}
+              {% if logo_position == 'menu_logo_center' %}
+              {% if header_logo != blank %}<li>
+                {% if page.url == '/pages/skin' %}
+                  <a href="/">
+                    <img src="https://cdn.shopify.com/s/files/1/0617/0571/5918/files/SUGARLogo1_1_c2384109-a79e-49a7-a002-cac624485387.png?v=1662189180" class="lazyload"
+                    data-src="{{ img_url }}"
+                    data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                    data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                    data-sizes="auto"         
+                    ></a>
+                {% else %}
+                  {{ header_logo }}
+                {% endif %}
+                </li>
+                {% endif %}
+                {% elsif logo_position == 'left' %}
+              {% endif %}
+              {%- for link in linklists[menu].links offset:2 -%}
+              <li><a href="{{ link.url }}">{{ link.title }}</a></li>                            
+              {%- endfor -%}
+            </ul>
+          </div>
+          <div class="header--icons--bar {% if logo_position == 'center' %}order3{% elsif logo_position == 'right' %}position3{% endif %}">
+            <div class="header-icons-bar">
+              {% if logo_position == 'menu_logo_center' %}
+              {% elsif logo_position == 'left' or logo_position == 'center' or logo_position == 'right' %}
+               {% if section.settings.enable_search %}
+              <div class="header--icon">
+                <form class="search-form search-bar__form" action="{{ routes.search_url }}" method="get" role="search">
+                  <a href="/search">
+                    {% render 'search-icon' %}
+                  </a>                    
+                </form>
+              </div>
+              {% endif %}
+              {% endif %}
+              {% if section.settings.enable_wishlist %}
+              <div class="header--icon">
+                <a href="/pages/wishlist">
+                  {% comment %}
+                  <img src="{{ 'heart (2) 1.png' | asset_img_url: 'master' }}" />
+                  {% endcomment %}
+                  {% render 'wishlist-icon-2' %}
+                </a>
+              </div>
+              {% endif %}
+              {% if section.settings.enable_account %}
+              <div class="header--icon">
+                <a href="javascript:void(0)">
+                  {% if page.url == '/pages/skin' %}
+                    <img src="https://cdn.shopify.com/s/files/1/0617/0571/5918/files/user_6_2.png?v=1662188858" class="user2"/>
+                  {% else %}
+                    <img src="{{ 'user (5) 1.png' | asset_img_url: 'master' }}" class="user2"/>
+                  {% endif %}
+                </a>
+                 <div class="user--login--popUp">
+                    <div class="Login-popup Login-popup2" style="display: none;">
+                      <a href="#"><img src="{{ 'login_triangle.png' | asset_img_url: 'master' }}" /></a>
+                      <div class="Login-button">
+                        <a href="/account/login" tabindex="-1">Log In</a>
+                      </div>
+                      <h5>New customer? <a href="/pages/login"><span>Start here.</span></a></h5>
+                      <ul>                      
+                        <a href="/account/login">
+                          <li><div class="acount-login"><img src="{{ 'l4.png' | asset_img_url: 'master' }}" /><h6> {% if customer %} {{ customer.first_name }} {% else %}Your Account{% endif %}</h6></div></li>
+                        </a>
+                        <a href="/account/">
+                          <li><div class="acount-login"><img src="{{ 'l3.png' | asset_img_url: 'master' }}" /><h6>Order</h6></div></li>
+                        </a>
+                        <a href="/pages/wishlist">
+                          <li><div class="acount-login"><img src="{{ 'l2.png' | asset_img_url: 'master' }}" /><h6>Wishlist</h6></div></li>
+                        </a>
+                        <a href="/account/logout/">
+                          <li><div class="acount-login"><img src="{{ 'l1.png' | asset_img_url: 'master' }}" /><h6>Log Out</h6></div></li>
+                        </a>
+                      </ul>
+                  </div>
+              </div>
+              </div>
+              {% endif %}
+              {% if section.settings.enable_cart %}
+              <div class="header--icon">
+                <a href="/cart">
+                  {% comment %}
+                  <img src="{{ 'shopping-bag (1) 1.png' | asset_img_url: 'master' }}" />
+                {% endcomment %}
+                  {% render 'cart-icon' %}
+                </a>
+              </div>
+                {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<header class="header-for-mobile">
+  {% assign moblie_logo_position = section.settings.moblie_logo_position %}
+  <div class="header">
+    <div class="header-container header" id="myHeader">
+      <div class="container">
+        <div class="header-content" {% if moblie_logo_position == 'right' %}style="flex-direction: row-reverse;"{% endif %}>
+          {% if moblie_logo_position == 'center' %}
+          <div class="header-search-bar">
+            <div class="header--search--icon">
+              {% render 'menu-icon' %}
+            {% comment %}
+                <img src="{{ 'menu (3) 1.png' | asset_img_url: 'master' }}" class="hamburger" /> 
+            {% endcomment %}
+            </div>
+          </div>
+          {% else %}
+          {% endif %}
+          <div class="header-links-and-log">
+              <ul>
+              {% if section.settings.logo_image != blank %}
+                <li>
+                  <a href="/">
+                    <img src="{{ section.settings.logo_image | img_url: 'master' }}" class="lazyload"
+                      data-src="{{ img_url }}"
+                     data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                     data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                     data-sizes="auto"
+                      />
+                  </a>
+                </li>
+              {% endif %}
+              </ul>
+          </div>
+          <div class="header--icons--bar {% if moblie_logo_position == 'left' or moblie_logo_position == 'right' %}header-icons-bar-position{% endif %}">
+            <div class="header-icons-bar">
+              {% if moblie_logo_position == 'right' %}
+              <div class="header--icon {% if moblie_logo_position == 'left' or moblie_logo_position == 'right' %}header--icon-position{% endif %}">
+                 <div class="header--search--icon">
+                   {% render 'menu-icon' %}
+                   {% comment %}
+                      <img src="{{ 'menu (3) 1.png' | asset_img_url: 'master' }}" class="hamburger" /> 
+                   {% endcomment %}
+                 </div>
+              </div>
+             {% endif %}
+              <div class="header--icon {% if moblie_logo_position == 'left' or moblie_logo_position == 'right' %}header--icon-position{% endif %}">
+                <div class="header--search--icon">
+                   {% if section.settings.enable_search %}
+                     <div class="header--search--icon"> 
+                      <a href="javascript:void(0)" class="search--model--open">
+                        {% render 'search-icon' %}
+                      </a>  
+                      <div class="search__model">
+                        <div class="search-modal modal__content gradient" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+                          <div class="modal-overlay"></div>
+                          <div class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}" tabindex="-1">
+                                <predictive-search>
+                                  <form action="{{ routes.search_url }}" method="get" role="search">
+                                    <input
+                                      id="Search"
+                                      type="text"
+                                      placeholder="Search"
+                                      name="q"
+                                      value="{{ search.terms | escape }}"
+                                        role="combobox"
+                                        aria-expanded="false"
+                                        aria-owns="predictive-search-results-list"
+                                        aria-controls="predictive-search-results-list"
+                                        aria-haspopup="listbox"
+                                        aria-autocomplete="list"
+                                        autocorrect="off"
+                                        autocomplete="off"
+                                        autocapitalize="off"
+                                        spellcheck="false"
+                                    >
+                                    <input name="options[prefix]" type="hidden" value="last">
+                                
+                                      <div id="predictive-search" tabindex="-1"></div>
+
+                                    <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">  
+                                      <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill:#fff;" width="28px" height="28px" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 487.95 487.95" style="enable-background:new 0 0 487.95 487.95;" xml:space="preserve"><g><g><path d="M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1    c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4    c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"/></g></g></svg>
+                                    </button>
+                                  </form>
+                                </predictive-search>
+                            <button type="button" class="modal__close-button link link--text focus-inset" aria-label="{{ 'accessibility.close' | t }}">
+                              <svg width="30px" height="30px" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><g data-name="Layer 2"><g data-name="close"><rect width="24" height="24" transform="rotate(180 12 12)" opacity="0"/><path d="M13.41 12l4.3-4.29a1 1 0 1 0-1.42-1.42L12 10.59l-4.29-4.3a1 1 0 0 0-1.42 1.42l4.3 4.29-4.3 4.29a1 1 0 0 0 0 1.42 1 1 0 0 0 1.42 0l4.29-4.3 4.29 4.3a1 1 0 0 0 1.42 0 1 1 0 0 0 0-1.42z"/></g></g></svg>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  {% endif %}
+                </div>
+              </div>
+              <div class="header--icon {% if moblie_logo_position == 'left' or moblie_logo_position == 'right' %}header--icon-position{% endif %}">
+                <a href="/cart">
+                   {% render 'cart-icon' %}
+                   {% comment %}
+                  <img src="{{ 'shopping-bag (1) 1.png' | asset_img_url: 'master' }}" />
+                  {% endcomment %}
+                </a>
+              </div>
+             {% if moblie_logo_position == 'left' %}
+              <div class="header--icon {% if moblie_logo_position == 'left' or moblie_logo_position == 'right' %}header--icon-position{% endif %}">
+                 <div class="header--search--icon">
+                   {% render 'menu-icon' %}
+                 {% comment %}
+                    <img src="{{ 'menu (3) 1.png' | asset_img_url: 'master' }}" class="hamburger" /> 
+                     {% endcomment %}
+                 </div>
+              </div>
+             {% endif %}
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+</div>
+<div class="aside-nav--bar">            
+  <img src="{{ 'wrong (3) 1.png' | asset_img_url: 'master' }}" class="close-menu--barrr" />
+    <div class="aside-nav--content">
+      <div class="aside-nav--heading">
+      </div>
+      <div class="aside-nav--nav--links">
+          {%- assign menu = section.settings.menu -%}
+          <ul>
+          {%- for link in linklists[menu].links -%}
+            <li><a href="{{ link.url }}">{{ link.title }}</a></li>                                                        
+          {%- endfor -%}
+            <li><a href="/pages/wishlist">Wishlist</a></li> 
+            <li><a href="/account">Log In</a></li> 
+          </ul>
+      </div>
+    </div>
+</div>
+
+
+{% comment %} Can't move css this position {% endcomment %}
+<style>
+.order1 {
+    order: 2;
+    display: flex;
+    justify-content: center;
+}
+.order2 {
+    order: 1;
+    flex: 0 0 35%;
+    max-width: 35%;
+} 
+.order3 {
+    order: 3;
+    flex: 0 0 35%;
+    max-width: 35%;
+}
+.position3 {
+    order: 1;
+    display: flex;
+    justify-content: start;
+} 
+.position2 {
+    order: 2;
+}
+.position1 {
+    order: 3;
+    display: flex;
+    justify-content: end;
+} 
+</style>
+
+{% comment %} Can't move Js this position {% endcomment %}
+<script>
+  $(".user2").click(function(){
+    $(".Login-popup2").slideToggle(100);
+    // $(".ooverlay").css("display","block");
+  });
+
+
+$(function(){
+    $('.hamburger').click(function(){
+       $('.aside-nav--bar').addClass('burger-menu-is-open');
+       $(".ooverlay").css("display","block");
+       $("body").css("overflow","hidden");
+    });
+
+    $('.aside-nav--bar .close-menu--barrr , .ooverlay').click(function(){
+       $('.aside-nav--bar').removeClass('burger-menu-is-open');
+       $(".ooverlay").css("display","none");
+       $("body").css("overflow","inherit");
+    })
+});
+
+    $(window).scroll(function(){
+    if ($(window).scrollTop() >= 113) {
+        $('.shopify-section-header').addClass('fixed-header');
+       
+    }
+    else {
+        $('.shopify-section-header').removeClass('fixed-header');  
+    }
+});
+
+$(document).ready(function() {
+  let header_color = $('.header-for-desktop').attr('data-url');
+  if(header_color == '/pages/skin' && $(window).width() > 767){
+    $('.header-container').css("background-color","#FFE8E7");
+    $('form.search-form.search-bar__form svg').css("fill","inherit");
+    $('.header-links-and-log ul li a').css("color","#000");
+    $('.header--icon svg').css("fill","inherit");
+    $('.header--search--icon svg').css("fill","inherit");
+  }
+});
+  
+</script>
+
+
+
+{% schema %}
+  {
+    "name": "Header",
+    "settings": [
+              {
+                "type": "image_picker",
+                "id": "logo_image",
+                "label": "Logo image"
+              },
+              {
+                "type": "select",
+                "id": "logo_position",
+                "options": [
+                  {
+                    "value": "left",
+                    "label": "Left"
+                  },
+                  {
+                    "value": "center",
+                    "label": "Center"
+                  },
+                  {
+                    "value": "right",
+                    "label": "Right"
+                  },
+                  {
+                    "value": "menu_logo_center",
+                    "label": "Menu Logo Center"
+                  }
+                ],
+                "default": "menu_logo_center",
+                "label": "Select Header Position"
+              },
+              {
+                "type": "checkbox",
+                "id": "sticky",
+                "label": "Sticky header",
+                "default": false
+              },
+              {
+                "type": "link_list",
+                "id": "menu",
+                "label": "Menu"
+              },
+              {
+                "type": "checkbox",
+                "id": "enable_wishlist",
+                "label": "Enable Wishlist Icon",
+                "default": true
+              },
+              {
+                "type": "checkbox",
+                "id": "enable_account",
+                "label": "Enable Account Icon",
+                "default": true
+              },
+              {
+                "type": "checkbox",
+                "id": "enable_cart",
+                "label": "Enable Cart Icon",
+                "default": true
+              },
+              {
+                "type": "checkbox",
+                "id": "enable_search",
+                "label": "Enable search Icon",
+                "default": true
+              },
+              {
+                "type": "header",
+                "content": "Moblie"
+              },
+              {
+                "type": "select",
+                "id": "moblie_logo_position",
+                "options": [
+                  {
+                    "value": "left",
+                    "label": "Left"
+                  },
+                  {
+                    "value": "center",
+                    "label": "Center"
+                  },
+                  {
+                    "value": "right",
+                    "label": "Right"
+                  }
+                ],
+                "default": "center",
+                "label": "Select Header Position"
+              }
+],
+"presets": [
+      {
+        "name": "Header",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+

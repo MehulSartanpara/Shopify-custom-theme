@@ -1,0 +1,95 @@
+<section class="desktop-tabing">
+  <div class="container">
+    <div class="tab-container">
+    <div class="container-tab">       
+          <ul class="tabs">
+                  {% if product.description != blank %}<li class="tab-link current" data-tab="tab-1">{{ 'products.product.description' | t }}</li>{% endif %}
+                  {% if product.metafields.custom.ingredients != blank %}  <li class="tab-link" data-tab="tab-2">Ingredients</li>{% endif %}
+                  {% if product.metafields.custom.how_to_use != blank %}<li class="tab-link" data-tab="tab-3">How to use</li>{% endif %}
+                  {% if product.metafields.custom.rating_and_reviews != blank %}<li class="tab-link" data-tab="tab-4">Rating and reviews</li>{% endif %}
+          </ul>  
+          {% if product.description != blank %}
+          <div id="tab-1" class="tab-content current">
+              <div class="tab--main--content">
+                  <div class="tab--main--text--content">
+                    <p>{{ product.description }}</p>
+                  </div>
+              </div> 
+          </div>
+          {% endif %}
+      
+           {% if product.metafields.custom.ingredients != blank %}         
+          <div  id="tab-2" class="tab-content">
+              <div class="tab--main--content">
+                  <div class="tab--main--text--content">
+                    <p>{{ product.metafields.custom.ingredients }}</p>
+                  </div>
+              </div> 
+          </div>
+          {% endif %}
+      
+          {% if product.metafields.custom.how_to_use != blank %}        
+          <div id="tab-3"   class="tab-content">
+              <div class="tab--main--content">
+                  <div class="tab--main--text--content">
+                    <p>{{ product.metafields.custom.how_to_use }}</p>
+                  </div>
+              </div> 
+          </div>
+          {% endif %}
+          
+          {% if product.metafields.custom.rating_and_reviews != blank %}         
+          <div id="tab-4" class="tab-content">
+              <div class="tab--main--content">
+                  <div class="tab--main--text--content">
+                    <p>{{ product.metafields.custom.rating_and_reviews }}</p>
+                  </div>
+              </div> 
+          </div>
+        {% endif %}
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="mobile-acrodian">
+  <div class="container">
+    <div class="tab-container">
+    <div class="container-tab">
+          <ul class="tabs">           
+           <div id="accordion" class="accordion-container">
+
+             {% if product.description != blank %}
+              <h4 class="accordion-title js-accordion-title">Description</h4>
+              <div class="accordion-content">
+                <p>{{ product.description }}</p>
+              </div>
+              {% endif %}
+
+             {% if product.metafields.custom.ingredients != blank %}
+             <h4 class="accordion-title js-accordion-title">Ingredients</h4>
+              <div class="accordion-content">
+                <p>{{ product.metafields.custom.ingredients }}</p>
+              </div>
+              {% endif %}
+
+             {% if product.metafields.custom.how_to_use != blank %}
+             <h4 class="accordion-title js-accordion-title">How to use</h4>
+              <div class="accordion-content">
+                <p>{{ product.metafields.custom.how_to_use }}</p>
+              </div>
+              {% endif %}
+             
+             {% if product.metafields.custom.rating_and_reviews != blank %}
+             <h4 class="accordion-title js-accordion-title">Rating and reviews</h4>
+              <div class="accordion-content">
+                <p>{{ product.metafields.custom.rating_and_reviews }}</p>
+              </div>
+            </div> 
+            {% endif %}
+            
+          </ul>        
+    </div>
+    </div>
+  </div>
+</section>

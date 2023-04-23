@@ -1,0 +1,131 @@
+{% comment %} <section class="instagram">
+	<div class="container">
+      <div class="instagram-container">
+		{% if section.settings.insta_heading != blank %}<h2 class="heading">{{ section.settings.insta_heading }}</h2>{% endif %}
+		{% if section.settings.insta_sub_title != blank %}<span>{{ section.settings.insta_sub_title }}</span>{% endif %}
+		<div class="insta-content">
+			{% for block in section.blocks %}
+              <div class="content-detail">
+				{% if block.settings.insta_img != blank %}<a href=""><img src="{{ block.settings.insta_img | img_url:'master' }}"></a>{% endif %}
+                <div class="insta-icon">
+                    {% if block.settings.insta_icon != blank %}<img src="{{ block.settings.insta_icon | img_url:'master' }}">{% endif %}
+                    {% if block.settings.insta_btn != blank %}<a href="{{ block.settings.insta_btn_url }}" class="insta_btn">{{ block.settings.insta_btn }}</a>{% endif %}
+                </div>
+              </div>
+			{% endfor %}
+		</div>
+      </div>
+	</div>      
+</section>
+<style>
+	.instagram {
+	    text-align: center;
+	    padding: 100px 0 85px;
+	}
+	h2.heading{
+		font-style: normal;
+		font-weight: 700;
+		font-size: 50px;
+		line-height: 29px;
+		letter-spacing: 0.05em;
+		color: #000000;
+	}
+	.instagram span{
+		font-style: normal;
+		font-weight: 400;
+		font-size: 20px;
+		padding: 12px 0 34px;
+    	display: inline-block;
+		line-height: 22px;
+		color: #A55A56;
+	}
+    .insta-content a {
+        display: inline-block;
+    }
+    .content-detail {
+        position: relative;
+    }
+    .insta-icon img {
+        margin: 0 auto;
+        padding-bottom: 15px;
+    }
+    .insta-icon {
+        position: absolute;
+        top: 43%;
+        left: 0;
+        right: 0;
+    }
+</style>
+
+<script>
+  $( document ).ready(function() {
+    $('.insta-content').slick({
+      dots: false,
+      infinite: true,
+      speed: 500,
+      cssEase: 'linear',
+      slidesToShow: 4,
+      slidesToScroll: 1,
+      prevArrow:"<button type='button' class='slick-prev pull-left'><img src='{{ 'preve-arrow.png' | asset_img_url: 'master' }}' /></button>",
+      nextArrow:"<button type='button' class='slick-next pull-right'><img src='{{ 'next-arrow (2).png' | asset_img_url: 'master' }}' /></button>",
+      arrows: true
+    });
+  });
+</script>
+
+{% schema %}
+  {
+    "name": "Instagram Section",
+    "settings": [
+    	{
+	    	"type" : "text",
+	    	"id" : "insta_heading",
+	    	"label" : "Heading"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "insta_sub_title",
+    		"label" : "Sub title"
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Instagram Section"
+      }
+    ],
+    "blocks": [
+        {
+	        "type": "block",
+	        "name": "Image",
+	          "settings": [
+		        {
+		            "type": "image_picker",
+		            "id": "insta_img",
+		            "label": "Add Image"
+		        },
+                {
+		            "type": "image_picker",
+		            "id": "insta_icon",
+		            "label": "Add Icon Image"
+		        },
+                {
+		            "type": "text",
+		            "id": "insta_btn",
+		            "label": "Add Button"
+		        },
+                {
+		            "type": "url",
+		            "id": "insta_btn_url",
+		            "label": "Add URL"
+		        }
+	        ]
+	    }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %} {% endcomment %}

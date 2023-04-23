@@ -1,0 +1,267 @@
+{{ 'faq.css' | asset_url | stylesheet_tag }}
+<section class="faq">
+	<div class="container">
+		<div class="faq-detail">
+			{% for block in section.blocks %}
+				<div class="faq-info">
+					{% if block.settings.title != blank %}<a href="javascript:void(0)">{{ block.settings.title }}</a>{% endif %}
+					<div class="content" style="display:none">
+						{% if block.settings.sub_text != blank %}<h5><svg version="1.1" width="22px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729;" xml:space="preserve"><g><path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0 L24.813,15.366z"/></g></svg>{{ block.settings.sub_text }}</h5>{% endif %}
+						<div class="sub-content" style="display:none">
+							{% if block.settings.sub_content_title != blank %}<h4>{{ block.settings.sub_content_title }}</h4>{% endif %}
+							{% if block.settings.sub_desc != blank %}<p>{{ block.settings.sub_desc }}</p>{% endif %}
+							{% if block.settings.sub_content_titles != blank %}<h4>{{ block.settings.sub_content_titles }}</h4>{% endif %}
+							{% if block.settings.sub_descs != blank %}<p>{{ block.settings.sub_descs }}</p>{% endif %}
+							{% if block.settings.dummy != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy }}</li>{% endif %}</ul>
+							{% if block.settings.dummy2 != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy2 }}</li>{% endif %}</ul>
+							{% if block.settings.dummy3 != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy3 }}</li>{% endif %}</ul>
+						</div>
+						{% if block.settings.sub_text2 != blank %}<h5><svg version="1.1" width="22px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729;" xml:space="preserve"><g><path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0 L24.813,15.366z"/></g></svg>{{ block.settings.sub_text2 }}</h5>{% endif %}
+						<div class="sub-content" style="display:none">
+							{% if block.settings.sub_content_title2 != blank %}<h4>{{ block.settings.sub_content_title2 }}</h4>{% endif %}
+							{% if block.settings.sub_desc2 != blank %}<p>{{ block.settings.sub_desc2 }}</p>{% endif %}
+							{% if block.settings.sub_content_titles2 != blank %}<h4>{{ block.settings.sub_content_titles2 }}</h4>{% endif %}
+							{% if block.settings.sub_descs2 != blank %}<p>{{ block.settings.sub_descs2 }}</p>{% endif %}
+							{% if block.settings.dummya != blank %}<ul class="dummy-text"><li>{{ block.settings.dummya }}</li>{% endif %}</ul>
+							{% if block.settings.dummy2a != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy2a }}</li>{% endif %}</ul>
+							{% if block.settings.dummy3a != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy3a }}</li>{% endif %}</ul>
+						</div>
+						{% if block.settings.sub_text3 != blank %}<h5><svg version="1.1" width="22px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729;" xml:space="preserve"><g><path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0 L24.813,15.366z"/></g></svg>{{ block.settings.sub_text3 }}</h5>{% endif %}
+						<div class="sub-content" style="display:none">
+							{% if block.settings.sub_content_title3 != blank %}<h4>{{ block.settings.sub_content_title3 }}</h4>{% endif %}
+							{% if block.settings.sub_desc3 != blank %}<p>{{ block.settings.sub_desc3 }}</p>{% endif %}
+							{% if block.settings.sub_content_titles3 != blank %}<h4>{{ block.settings.sub_content_titles3 }}</h4>{% endif %}
+							{% if block.settings.sub_descs3 != blank %}<p>{{ block.settings.sub_descs3 }}</p>{% endif %}
+							{% if block.settings.dummyb != blank %}<ul class="dummy-text"><li>{{ block.settings.dummyb }}</li>{% endif %}</ul>
+							{% if block.settings.dummy2b != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy2b }}</li>{% endif %}</ul>
+							{% if block.settings.dummy3b != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy3b }}</li>{% endif %}</ul>
+						</div>
+						{% if block.settings.sub_text4 != blank %}<h5><svg version="1.1" width="22px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729;" xml:space="preserve"><g><path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0 L24.813,15.366z"/></g></svg>{{ block.settings.sub_text4 }}</h5>{% endif %}
+						<div class="sub-content" style="display:none">
+							{% if block.settings.sub_content_title4 != blank %}<h4>{{ block.settings.sub_content_title4 }}</h4>{% endif %}
+							{% if block.settings.sub_desc4 != blank %}<p>{{ block.settings.sub_desc4 }}</p>{% endif %}
+							{% if block.settings.sub_content_titles4 != blank %}<h4>{{ block.settings.sub_content_titles4 }}</h4>{% endif %}
+							{% if block.settings.sub_descs4 != blank %}<p>{{ block.settings.sub_descs4 }}</p>{% endif %}
+							{% if block.settings.dummyc != blank %}<ul class="dummy-text"><li>{{ block.settings.dummyc }}</li>{% endif %}</ul>
+							{% if block.settings.dummy2c != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy2c }}</li>{% endif %}</ul>
+							{% if block.settings.dummy3c != blank %}<ul class="dummy-text"><li>{{ block.settings.dummy3c }}</li>{% endif %}</ul>
+						</div>
+						{% if block.settings.sub_text5 != blank %}<h5><svg version="1.1" width="22px" height="22px" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="30.729px" height="30.729px" viewBox="0 0 30.729 30.729" style="enable-background:new 0 0 30.729 30.729;" xml:space="preserve"><g><path d="M24.813,15.366L10.185,29.997c-0.487,0.487-1.128,0.731-1.768,0.731c-0.641,0-1.279-0.244-1.769-0.731c-0.977-0.978-0.977-2.561,0-3.536l11.095-11.096L6.649,4.268c-0.976-0.977-0.976-2.56,0-3.536c0.977-0.977,2.56-0.976,3.536,0 L24.813,15.366z"/></g></svg>{{ block.settings.sub_text5 }}</h5>{% endif %}
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+
+
+
+{% schema %}
+  {
+    "name": "Faq",
+    "settings": [],
+    "blocks": [
+    	{
+    		"type" : "block",
+    		"name" : "title",
+    		"settings" : [
+    			{
+    				"type" : "text",
+    				"id" : "title",
+    				"label" : "Add Title"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_text",
+    				"label" : "Add Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_title",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_desc",
+    				"label" : "Add Desc"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_titles",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_descs",
+    				"label" : "Add Sub Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy2",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy3",
+    				"label" : "Add Dummy Text"
+    			},
+
+
+
+
+    			{
+    				"type" : "text",
+    				"id" : "sub_text2",
+    				"label" : "Add Text"
+    			},
+				{
+    				"type" : "text",
+    				"id" : "sub_content_title2",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_desc2",
+    				"label" : "Add Desc"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_titles2",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_descs2",
+    				"label" : "Add Sub Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummya",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy2a",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy3a",
+    				"label" : "Add Dummy Text"
+    			},
+
+
+
+    			{
+    				"type" : "text",
+    				"id" : "sub_text3",
+    				"label" : "Add Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_title3",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_desc3",
+    				"label" : "Add Desc"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_titles3",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_descs3",
+    				"label" : "Add Sub Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummyb",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy2b",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy3b",
+    				"label" : "Add Dummy Text"
+    			},
+
+
+
+    			{
+    				"type" : "text",
+    				"id" : "sub_text4",
+    				"label" : "Add Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_title4",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_desc4",
+    				"label" : "Add Desc"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "sub_content_titles4",
+    				"label" : "Add Content Text"
+    			},
+    			{
+    				"type" : "richtext",
+    				"id" : "sub_descs4",
+    				"label" : "Add Sub Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummyc",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy2c",
+    				"label" : "Add Dummy Text"
+    			},
+    			{
+    				"type" : "text",
+    				"id" : "dummy3c",
+    				"label" : "Add Dummy Text"
+    			},
+
+
+
+    			{
+    				"type" : "text",
+    				"id" : "sub_text5",
+    				"label" : "Add Text"
+    			}
+    		]
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Faq"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

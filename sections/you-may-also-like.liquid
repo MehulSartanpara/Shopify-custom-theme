@@ -1,0 +1,154 @@
+<section>
+  <div class="You-May-Also-Like">
+    <div class="best-seller">
+      <div class="best-seller-container">
+        <div class="container">
+            <div class="best-seller--collection-title">
+              <h2 class="heading">{{ section.settings.title }}</h2>
+            </div>
+          <div class="best-seller-content">
+            <div class="best--seller--main--content product--slider-you-also-like"
+              data-slide-dots="{{ section.settings.show_dots }}"
+              data-slide-arrows="{{ section.settings.show_arrows }}"
+              data-slide-infinite="{{ section.settings.infinite }}"
+              data-slide-auto_slide="{{ section.settings.auto_slide }}"
+              data-slide-auto_speed="{{ section.settings.auto_speed }}"
+              data-slide-slide_to_show="{{ section.settings.slide_to_show }}"
+              >   
+              {% for product in collections[section.settings.feature_collection].products %}
+                <div class="product--item--colunm-padding"> 
+                  <div class="product--item--col product-item-hover">
+                       {% render 'card-product', 
+                         product:product,
+                         cart_icon: section.settings.cart_icon
+                         enable_wishlist: section.settings.enable_wishlist,
+                         enable_quick_view: section.settings.enable_quick_view
+                       %}
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+ $(document).ready(function(){
+  $(".product-item--add-bag").click(function(event){
+    event.preventDefault();
+    $(this).closest(".product--item--col").find(".product-item--add-to-cart").trigger("click");
+  });
+});
+</script>
+
+{% schema %}
+  {
+    "name": "You May Also Like",
+    "settings": [
+    {
+ 		"type": "text",
+ 		"id": "title",
+ 		"label": "Chose Collection Name"
+ 	},
+    {
+ 		"type": "collection",
+ 		"id": "feature_collection",
+ 		"label": "Chose Collection"
+ 	},
+    {
+      "type": "checkbox",
+      "id": "show_add_to_cart",
+      "label": "Show add to cart button",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_more",
+      "label": "Show view more button",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "cart_icon",
+      "label": "Enable Cart Icon",
+      "default": true
+    },
+     {
+      "type": "checkbox",
+      "id": "show_review",
+      "label": "Enable Product Review",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_quick_view",
+      "label": "Enable Quick View",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "enable_wishlist",
+      "label": "Enable Wishlist icon",
+      "default": true
+    },
+     {
+      "type": "checkbox",
+      "id": "show_dots",
+      "label": "Show slider dots",
+      "default": false
+    },
+    {
+      "type": "checkbox",
+      "id": "show_arrows",
+      "label": "Show slider arrows",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "infinite",
+      "label": "slider infinite",
+      "default": true
+    },
+    {
+      "type": "range",
+      "id": "slide_to_show",
+      "min": 0,
+      "max": 5,
+      "step": 1,
+      "label": "Slide to show in desktop",
+      "default": 3
+    },
+    {
+      "type": "checkbox",
+      "id": "auto_slide",
+      "label": "Autoplay Slide",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "auto_speed",
+      "min": 1000,
+      "max": 5000,
+      "step": 500,
+      "label": "Autoplay Speed",
+      "default": 2000
+    }
+],
+"presets": [
+      {
+        "name": "You May Also Like",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+

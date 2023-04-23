@@ -1,0 +1,123 @@
+{{ 'skin-video.css' | asset_url | stylesheet_tag }}
+<div class="skin-video">
+  <div class="container">
+    <div class="skin-video-inner">
+      {% for block in section.blocks %}
+        <div class="skin-video-block skin-video-{{ block.id }}">
+          <div class="skin-video-block-inner">
+          {% if block.settings.image != blank %}
+               <img src="{{ block.settings.image | img_url:'master' }}" class="vdo-1-play lazyload"
+                 data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                 >
+            {% endif %}
+            <div class="play--btn">
+              {% render 'play-btn-icon' %}
+            </div>
+            <div id="skin-video">
+                <span class="close-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="25px" height="25px" aria-hidden="true" focusable="false" role="presentation" class="icon icon-close" fill="none" viewBox="0 0 18 17">
+                    <path d="M.865 15.978a.5.5 0 00.707.707l7.433-7.431 7.579 7.282a.501.501 0 00.846-.37.5.5 0 00-.153-.351L9.712 8.546l7.417-7.416a.5.5 0 10-.707-.708L8.991 7.853 1.413.573a.5.5 0 10-.693.72l7.563 7.268-7.418 7.417z" fill="currentColor">
+                  </svg>
+                </span>
+                {%- if block.settings.video_url.type == 'youtube' -%}
+                  <iframe src="https://www.youtube.com/embed/{{ block.settings.video_url.id }}?enablejsapi=1" class="js-youtube" allow="autoplay; encrypted-media"></iframe>
+                {%- elsif block.settings.video_url.type == 'vimeo' -%}
+                <iframe src="https://player.vimeo.com/video/{{ block.settings.video_url.id }}" class="js-vimeo" allow="autoplay; encrypted-media"></iframe>
+                {% elsif block.settings.video_url2 != blank %}
+                <video class="video" width="100%" height="100%" style="background: #000;" controls>
+                  <source src="{{ block.settings.video_url2 }}" type="video/mp4">
+                </video>
+              {%- endif -%}
+            </div>       
+          </div>
+          {% if block.settings.video_title != blank %}
+            <h3>{{ block.settings.video_title }}</h3>
+          {% endif %}             
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+
+<style>
+  .skin-video{
+  background:{{ section.settings.background }};
+  padding-top:{{ section.settings.padding_top }}px;
+  padding-bottom:{{ section.settings.padding_bottom }}px;
+  margin: 12% 0;
+} 
+</style>
+                      
+
+      
+{% schema %}
+  {
+    "name": "Skin Video",
+    "settings": [
+      {
+          "type": "range",
+          "id": "padding_top",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "label": "Banner Padding Top",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "label": "Banner Padding Bottom",
+          "default": 100
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Select Background Color",
+          "default":"#FCDCDD"
+        }
+      ],
+      "blocks": [
+        {
+        "type": "block",
+        "name": "block",
+          "settings": [
+          {
+            "type": "image_picker",
+            "id": "image",
+            "label": "Insert Video Cover Image"
+          },
+          {
+            "type": "video_url",
+            "id": "video_url",
+            "accept": [
+              "youtube",
+              "vimeo"
+            ],
+            "label": "Insert Iframe URL"
+          },
+          {
+            "type": "textarea",
+            "id": "video_url2",
+            "label": "Insert Video URL"
+          },
+          {
+              "type" : "text",
+              "id" : "video_title",
+              "label" : "Enter Video Title"
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Skin Video"
+      }
+    ]
+  }
+{% endschema %}

@@ -1,0 +1,72 @@
+<section>
+  <div class="list-collection-container">
+    <div class="container">
+      <div class="list-collection-content">
+        <div class="list-collection-content-inner">
+          <div class="list-collection--page-title">
+            <div class="about-title">            
+              {% if section.settings.title != blank %}<h2>{{ section.settings.title }}</h2>{% endif %}
+            </div>
+          </div>
+          <div class="list-collection--page-collections">
+            <div class="list-collection--page-collections--content">
+               {%- for collection in collections -%}
+                 <div class="list-collection-list">
+                   <div class="list-collection-list--inner">
+                     <div class="shop--categories--list">
+                      <div class="shop--categories--list--title">                      
+                        <p class="shop--categoriy--list--title"><a href="{{ collection.url }}">{{ collection.title }}</a></p>                   
+                      </div>                      
+                      <div class="shop--categories--list--img">
+                        {% if collection.featured_image != blank %}
+                          <a href="{{ collection.url }}">
+                            <img src="{{ collection.featured_image | img_url: 'master' }}" class="shop--categories-list-img lazyload"
+                                data-src="{{ img_url }}"
+                                data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                                data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                                data-sizes="auto"
+                            />
+                          </a>
+                        {% endif %}
+                      </div>                    
+                      <div class="shop--categories--list--qty">                    
+                        <p class="shop--categoriy-list-qty">{{ collection.products_count }} ITEM</p>                  
+                      </div>
+                    </div>
+                   </div>
+                 </div>
+               {%- endfor -%}
+            </div> 
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "list-collection",
+    "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title"
+            }
+
+	
+],
+"presets": [
+      {
+        "name": "list-collection",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

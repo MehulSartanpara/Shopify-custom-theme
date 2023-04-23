@@ -1,0 +1,45 @@
+<a href="" class="product-item--add-bag" {% if product.selected_or_first_available_variant.available == false %}style="opacity: 0.5;"{% endif %}>
+  {% render 'cart-icon' %}
+</a>
+<a href="" class="product-item--add-wishlist" >
+  {% render 'wishlist-icon' %}
+</a>
+<a href="">
+    <div class="trending--item--image">
+      <a class="" href="{{ product.url }}">
+        <img class="item-first-image image" src="{{ product.featured_image | img_url: 'medium' | format: 'jpg' }}" alt="">    
+      </a>
+    </div>
+    <div class="trending--item--price">
+      <p class="product-item--price">{{ product.price | money }}</p>
+    </div> 
+    <div class="trending--item--title">
+      <p class="product-item--title">{{ product.title }}</p>
+    </div>
+    <div class="trending--item--review">
+    </div>
+</a>       
+<div class="trending--item--add--to--cart">
+    <form method="post" action="/cart/add">
+           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <input type="hidden" name="quantity" value="1">
+           <input type="submit" 
+            {% if product.selected_or_first_available_variant.available == false %}
+              value="{{ 'products.product.sold_out' | t }}" 
+            {% else %}
+                value="{{ 'products.product.add_to_cart' | t }}" 
+             {% endif %}
+             class="product-item--add-to-cart 
+            {% if product.selected_or_first_available_variant.available == false %}
+               disable--add-to-cart
+            {% endif %}" 
+            {% if product.selected_or_first_available_variant.available == false %} 
+               disabled 
+            {% endif %}
+          >
+    </form>
+    <div class="wishlist-remove-product removeFromwhishlist">
+      <a href="" class="product-item--add-to-cart removeWhishlist" data-prouduct-handle="{{ product.handle }}">Remove</a>
+    </div>
+</div>
+    

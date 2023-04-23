@@ -1,0 +1,169 @@
+{% if section.settings.enable_announcement_bar %}
+<announcement>
+  <div class="announcement">
+    <div class="container">
+      <div class="announcement-content">
+        <div class="announcement--left">
+          <div class="announcement--left--content">
+            {% if section.settings.text != blank %}
+              <p>{{ section.settings.text }}</p>
+            {% endif %}
+          </div>
+        </div>
+        <div class="announcement--right">
+          <div class="announcement--right-content">
+            {% if  section.settings.enable_social_icon %}
+                {% render 'social-icon' %}
+            {% endif %}     
+            <div class="annouce-icons">
+              {% if section.settings.enable_country_and_payment %}
+              {% if localization.available_countries.size > 1 %}
+                <localization-form>
+                  {% form 'localization' %}
+                    <div class="disclosure">
+                      <button type="button" class="disclosure__button" aria-expanded="false" aria-controls="CountryList">
+                        {% if localization.country.name == 'Australia' %}
+                          <img src="{{ 'australia.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'Canada' %}
+                          <img src="{{ 'canada.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'France' %}
+                          <img src="{{ 'france.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'Germany' %}
+                          <img src="{{ 'germany.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'India' %}
+                          <img src="{{ 'india.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'New Zealand' %}
+                          <img src="{{ 'new_zealand.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'Poland' %}
+                          <img src="{{ 'poland.png' | asset_img_url: 'master' }}" />
+                        {% elsif localization.country.name == 'United States' %}
+                          <img src="{{ 'usa.png' | asset_img_url: 'master' }}" />
+                        {% endif %} 
+                    
+                        {{ localization.country.name }} ({{ localization.country.currency.iso_code }} {{ localization.country.currency.symbol }})
+              
+                        <svg aria-hidden="true" focusable="false" role="presentation" class="icon icon-caret" viewBox="0 0 10 6">
+                          <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                        </svg>
+                      </button>
+                          <ul id="CountryList" role="list" class="disclosure__list" hidden>
+                            {% for country in localization.available_countries %}
+                              <li class="disclosure__item" tabindex="-1">
+                                <a class="disclosure__item-name" href="#"{% if country.iso_code == localization.country.iso_code %} aria-current="true"{% endif %} data-value="{{ country.iso_code }}">
+                                {% if country.name == 'Australia' %}
+                                  <img src="{{ 'australia.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'Canada' %}
+                                  <img src="{{ 'canada.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'France' %}
+                                  <img src="{{ 'france.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'Germany' %}
+                                  <img src="{{ 'germany.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'India' %}
+                                  <img src="{{ 'india.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'New Zealand' %}
+                                  <img src="{{ 'new_zealand.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'Poland' %}
+                                  <img src="{{ 'poland.png' | asset_img_url: 'master' }}" />
+                                {% elsif country.name == 'United States' %}
+                                  <img src="{{ 'usa.png' | asset_img_url: 'master' }}" />
+                                {% endif %}
+                                  <p>{{ country.name }} ({{ country.currency.iso_code }} {{ country.currency.symbol }})</p>
+                                </a>
+                              </li>
+                            {% endfor %}
+                          </ul>
+                      <input type="hidden" name="country_code" value="{{ localization.country.iso_code }}">
+                    </div>
+                  {% endform %}
+                </localization-form>
+              {% endif %}
+              {% comment %}
+              <div class="annouce-language-drop-down">
+                <div class="annouce-language-drop-down-content">
+                  <div class="annouce-language-drop-down-1">
+                    <a href="javascript:void(0)"><img src="{{ 'india 1.png' | asset_img_url: 'master' }}" /></a>
+                  </div>
+                  <div class="annouce-language-drop-down-2">
+                    <p>India(INR <i class="fa fa-inr" aria-hidden="true"></i>)</p>
+                  </div>
+                  <div class="annouce-language-drop-down-3">
+                    <a href="javascript:void(0)"><img src="{{ 'next (5) 1.png' | asset_img_url: 'master' }}" /></a>
+                    <div class="contry--selector">
+                      <div class="contry--selector-inner">
+                        <ul>
+                          <li>
+                            <div class="annouce-language-drop-down---2">
+                                  <img src="{{ 'india 1.png' | asset_img_url: 'master' }}" /><p>India(INR <i class="fa fa-inr" aria-hidden="true"></i>)</p>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="annouce-language-drop-down---2">
+                              <img src="{{ 'india 1.png' | asset_img_url: 'master' }}" /><p>USD(DOLLAR <i class="fa fa-usd" aria-hidden="true"></i>)</p>
+                            </div>
+                          </li>
+                          <li>
+                            <div class="annouce-language-drop-down---2">
+                              <img src="{{ 'india 1.png' | asset_img_url: 'master' }}" /><p>EUR(EUR <i class="fa fa-eur" aria-hidden="true"></i>)</p>
+                            </div>
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {% endcomment %}
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</announcement>
+{% endif %}
+
+
+{% schema %}
+  {
+    "name": "announcement Bar",
+    "settings": [
+              {
+                "type": "checkbox",
+                "id": "enable_announcement_bar",
+                "label": "Enable Announcement Bar",
+                "default": true
+              },
+              {
+                "type": "textarea",
+                "id": "text",
+                "label": "Text"
+              },
+              {
+                "type": "checkbox",
+                "id": "enable_social_icon",
+                "label": "Enable Social Icon",
+                "default": true
+              },
+              {
+                "type": "checkbox",
+                "id": "enable_country_and_payment",
+                "label": "Enable Country Payment",
+                "default": true
+              }
+	
+],
+"presets": [
+      {
+        "name": "announcement",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

@@ -1,0 +1,453 @@
+{{ 'customer.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'customer.js' | asset_url }}" defer></script>
+
+  {%- paginate customer.addresses by 5 -%}
+<section class="address-form">
+  <div class="container form">
+    <div class="customer addresses" data-customer-addresses>
+    <div class="about-title">
+      <h2>{{ 'customer.addresses.title' | t }}</h2>
+    </div>
+      <div data-address>
+        <button
+          class="top-form-btn"
+          type="button"
+          aria-expanded="false"
+          aria-controls="AddAddress"
+        >
+          {{ 'customer.addresses.add_new' | t }}
+        </button>
+        <div id="AddAddress">
+          {%- form 'customer_address', customer.new_address, aria-labelledBy: 'AddressNewHeading' -%}
+            <div class="add-name">
+                <div class="address-input">
+                    <label for="AddressFirstNameNew">{{ 'customer.addresses.first_name' | t }}</label>
+                    <input type="text" id="AddressFirstNameNew" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+                </div>
+                <div class="address-input">
+                    <label for="AddressLastNameNew">{{ 'customer.addresses.last_name' | t }}</label>
+                    <input type="text" id="AddressLastNameNew" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+                </div>
+            </div>
+            <div class="address-input">
+                <label for="AddressAddress1New">{{ 'customer.addresses.address1' | t }}</label>
+                <input type="text" id="AddressAddress1New" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1">
+            </div>
+            <div class="address-input">
+                <label for="AddressAddress2New">{{ 'customer.addresses.address2' | t }}</label>
+                <input type="text" id="AddressAddress2New" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+            </div>
+            <div class="address-input">
+                <label for="AddressCityNew">{{ 'customer.addresses.city' | t }}</label>
+                <input type="text" id="AddressCityNew" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+            </div>
+            <div class="address-input">
+              <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
+              <div class="select">
+                <select
+                  id="AddressCountryNew"
+                  name="address[country]"
+                  data-default="{{ form.country }}"
+                  autocomplete="country"
+                >
+                  {{ all_country_option_tags }}
+                </select>
+              </div>
+            </div>
+            <div class="address-input" id="AddressProvinceContainerNew" style="display: none">
+              <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
+              <div class="select">
+                <select
+                  id="AddressProvinceNew"
+                  name="address[province]"
+                  data-default="{{ form.province }}"
+                  autocomplete="address-level1"
+                >
+                </select>
+                
+              </div>
+            </div>
+            <div class="address-input">
+                <label for="AddressZipNew">{{ 'customer.addresses.zip' | t }}</label>
+                <input type="text" id="AddressZipNew" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code">
+            </div>
+            <div class="address-input">
+              <label for="AddressPhoneNew">{{ 'customer.addresses.phone' | t }}</label>
+              <input type="tel" id="AddressPhoneNew" name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+            </div>
+            <div class="set-address">
+              {{ form.set_as_default_checkbox }}
+              <span for="address_default_address_new">{{ 'customer.addresses.set_default' | t }}</span>
+            </div>
+            <div class="address-btn">
+              <button class="btn primary-btn">{{ 'customer.addresses.add' | t }}</button>
+              <button class="cancel-btn" type="reset">{{ 'customer.addresses.cancel' | t }}</button>
+            </div>
+          {%- endform -%}
+        </div>
+      </div>
+  
+      <ul role="list">
+        {%- for address in customer.addresses -%}
+          <li data-address>
+            <div class="default-box">
+                <h4>Your Addresses</h4>
+                {%- if address == customer.default_address -%}
+                  <span>{{ 'customer.addresses.default' | t }}</span>
+                {%- endif -%}
+                {{ address | format_address }}
+                <div class="edit-btn">
+                    <button
+                      class="edit"
+                      type="button"
+                      id="EditFormButton_{{ address.id }}"
+                      aria-label="{{ 'customer.addresses.edit_address' | t }} {{ forloop.index }}"
+                      aria-controls="EditAddress_{{ address.id }}"
+                      aria-expanded="false"
+                      data-address-id="{{ address.id }}"
+                    >
+                      {{ 'customer.addresses.edit' | t }}
+                    </button>
+                    <button
+                      type="button"
+                      aria-label="{{ 'customer.addresses.delete' | t }} {{ forloop.index }}"
+                      data-target="{{ address.url }}"
+                      data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                    >
+                      {{ 'customer.addresses.delete' | t }}
+                    </button>
+                </div>
+            </div>
+            <div class="new-form" id="EditAddress_{{ address.id }}" style="display:none;">
+              {%- form 'customer_address', address -%}
+                <div class="add-name">
+                    <div class="address-input">
+                      <label for="AddressFirstName_{{ form.id }}">{{ 'customer.addresses.first_name' | t }}</label>
+                      <input type="text" id="AddressFirstName_{{ form.id }}" name="address[first_name]" value="{{ form.first_name }}" autocomplete="given-name">
+                    </div>
+                    <div class="address-input">
+                      <label for="AddressLastName_{{ form.id }}">{{ 'customer.addresses.last_name' | t }}</label>
+                      <input type="text" id="AddressLastName_{{ form.id }}" name="address[last_name]" value="{{ form.last_name }}" autocomplete="family-name">
+                    </div>
+                </div>
+                <div class="address-input">
+                  <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
+                  <input type="text" id="AddressAddress1_{{ form.id }}" name="address[address1]" value="{{ form.address1 }}" autocomplete="address-line1">
+                </div>
+                <div class="address-input">
+                  <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
+                  <input type="text" id="AddressAddress2_{{ form.id }}" name="address[address2]" value="{{ form.address2 }}" autocomplete="address-line2">
+                </div>
+                <div class="address-input">
+                  <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
+                  <input type="text" id="AddressCity_{{ form.id }}" name="address[city]" value="{{ form.city }}" autocomplete="address-level2">
+                </div>
+                <div class="address-input">
+                  <label for="AddressCountry_{{ form.id }}">
+                    {{ 'customer.addresses.country' | t }}
+                  </label>
+                  <div class="select">
+                    <select
+                      id="AddressCountry_{{ form.id }}"
+                      name="address[country]"
+                      data-address-country-select
+                      data-default="{{ form.country }}"
+                      data-form-id="{{ form.id }}"
+                      autocomplete="country"
+                    >
+                      {{ all_country_option_tags }}
+                    </select>
+                  </div>
+                </div>
+                <div class="address-input" id="AddressProvinceContainer_{{ form.id }}">
+                  <label for="AddressProvince_{{ form.id }}">
+                    {{ 'customer.addresses.province' | t }}
+                  </label>
+                  <div class="select">
+                    <select
+                      id="AddressProvince_{{ form.id }}"
+                      name="address[province]"
+                      data-default="{{ form.province }}"
+                      autocomplete="address-level1"
+                    >
+                    </select>
+                  </div>
+                </div>
+                <div class="address-input">
+                  <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
+                  <input type="text" id="AddressZip_{{ form.id }}" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters" autocomplete="postal-code">
+                </div>
+                <div class="address-input">
+                  <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
+                  <input type="tel" id="AddressPhone_{{ form.id }}"  name="address[phone]" value="{{ form.phone }}" autocomplete="tel">
+                </div>
+                <div  class="set-address">
+                  {{ form.set_as_default_checkbox }}
+                  <span for="address_default_address_{{ form.id }}">
+                    {{ 'customer.addresses.set_default' | t }}
+                  </span>
+                </div>
+                <div class="address-btn">
+                  <button class="btn primary-btn">{{ 'customer.addresses.update' | t }}</button>
+                  <button class="cancel-btn form" type="reset">{{ 'customer.addresses.cancel' | t }}</button>
+                </div>
+              {%- endform -%}
+            </div>
+          </li>
+        {%- endfor -%}
+      </ul>
+  
+      {%- if paginate.pages > 1 -%}
+        {%- if paginate.parts.size > 0 -%}
+            <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
+              <ul role="list">
+              {%- if paginate.previous -%}
+                <li>
+                  <a href="{{ paginate.previous.url }}" aria-label="{{ 'general.pagination.previous' | t }}">
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+  
+              {%- for part in paginate.parts -%}
+                <li>
+                  {%- if part.is_link -%}
+                    <a href="{{ part.url }}" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</a>
+                  {%- else -%}
+                    {%- if part.title == paginate.current_page -%}
+                      <span aria-current="page" aria-label="{{ 'general.pagination.page' | t: number: part.title }}">{{ part.title }}</span>
+                    {%- else -%}
+                      <span>{{ part.title }}</span>
+                    {%- endif -%}
+                  {%- endif -%}
+                </li>
+              {%- endfor -%}
+  
+              {%- if paginate.next -%}
+                <li>
+                  <a href="{{ paginate.next.url }}" aria-label="{{ 'general.pagination.next' | t }}" >
+                    <svg aria-hidden="true" focusable="false" viewBox="0 0 10 6">
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M9.354.646a.5.5 0 00-.708 0L5 4.293 1.354.646a.5.5 0 00-.708.708l4 4a.5.5 0 00.708 0l4-4a.5.5 0 000-.708z" fill="currentColor">
+                    </svg>
+                  </a>
+                </li>
+              {%- endif -%}
+              </ul>
+            </nav>
+        {%- endif -%}
+      {%- endif -%}
+    </div>
+    <div class="back"><a href="/account">Back to account</a></div>   
+  </div>
+</div>
+  {%- endpaginate -%}
+
+  {% section 'shipping' %}
+
+<style>
+  .container.form {
+      max-width: 876px;
+  }
+  .top-form-btn {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 22px;
+      background-color: transparent;
+      border: 0;
+      font-family: 'Tw Cen MT Std';
+      cursor: pointer;
+      display: inline-block;
+      color: #A55A56;
+      border-bottom: 1px solid #A55A56;
+  }
+  .address-input input, .select select {
+      border: 1px solid #A55A56;
+      min-height: 50px;
+      padding: 8px 15px;
+      width: 100%;
+  }
+  .add-name {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 24px;
+  }
+  .address-input {
+      padding-bottom: 30px;
+  }
+  .address-input label {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 22px;
+      color: #A55A56;
+      margin-bottom: 10px;
+      display: inline-block;
+  }
+  .address-btn {
+      display: flex;
+  }
+  .address-btn .cancel-btn {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 27px;
+      color: #A55A56 !important;
+      display: inline-block;
+      margin-left: 34px;
+      padding: 16px 86px;
+      cursor: pointer;
+      border: 1px solid #A55A56;
+  }
+  .address-btn .btn.primary-btn {
+      padding: 16px 38px 15px 39px;
+      color: #F7E9E3;
+  }
+  .set-address {
+      display: flex;
+      align-items: center;
+      padding: 10px 0 40px;
+  }
+  .set-address span {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 16px;
+      color: #000000;
+      margin-left: 13px;
+  }
+  .back {
+      text-align: center;
+      padding: 12px 0 20px;
+  }
+  .back a {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 22px;
+      color: #A55A56;
+      display: inline-block;
+      border-bottom: 1px solid #A55A56;
+  }
+  .default-box {
+      width: 100%;
+      max-width: 572px;
+      margin: 0 auto;
+      text-align: center;
+      background-color: #FFE8E7;
+      padding: 30px 0 38px;
+  }
+  .default-box h4 {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 33px;
+      color: #000000;
+  }
+  .default-box span, .default-box p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 22px;
+      color: #000000;
+      padding: 10px 0;
+      display: inline-block;
+  }
+  .default-box p {
+      display: block;
+      padding: 24px 0 33px;
+      line-height: 30px;
+  }
+  .edit {
+      padding: 10px 32px !important;
+  }
+  .edit-btn button {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 27px;
+      color: #A55A56;
+      display: inline-block;
+      border: 1px solid #A55A56;
+      margin: 0 15px;
+      padding: 10px 18px;
+      font-family: 'Tw Cen MT';
+      background: transparent;
+      cursor: pointer;
+  }
+  .second-form {
+      padding-top: 40px;
+  }
+  .set-address input[type="checkbox"] {
+      height: 20px;
+      width: 20px;
+      border-radius: 0 !important;
+      border-color: #000 !important;
+  }
+  .open-form{
+      display: block !important;
+  }
+
+  @media (max-width:767px){
+    .container.form {
+        padding: 0 40px;
+    }
+    .add-name {
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 0;
+    }
+    .default-box{
+        max-width: 100%;
+    }
+    .default-box h4{
+        font-size: 20px;
+        line-height: 22px;
+    }
+    .default-box span, .default-box p, .top-form-btn{
+        font-size: 15px;
+        line-height: 16px;
+    }
+    .default-box p{
+        padding: 10px 0 30px;
+        line-height: 22px;
+    }
+    .edit-btn button{
+        font-size: 15px;
+        line-height: 16px;
+        margin: 0 8px;
+        padding: 6px 18px;
+    }
+    .edit {
+        padding: 6px 28px !important;
+    }
+    .address-btn .btn.primary-btn {
+        padding: 14px 26px;
+    }
+    .address-btn .cancel-btn{
+        padding: 14px 64px;
+        font-size: 20px;
+        margin-left: 26px;
+    }
+  }
+  @media (max-width:480px){
+      .address-btn .btn.primary-btn {
+          padding: 14px 12px;
+          flex: 0 0 50%;
+          max-width: 50%;
+      }
+      .address-btn .cancel-btn {
+          padding: 14px 14px;
+          flex: 0 0 50%;
+          max-width: calc(50% - 26px);
+          text-align: center;
+      }
+  }
+</style>
+                        
+<script>
+  window.onload = () => {
+    typeof CustomerAddresses !== 'undefined' && new CustomerAddresses();
+  }
+</script>

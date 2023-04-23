@@ -1,0 +1,69 @@
+{{ 'provider.css' | asset_url | stylesheet_tag }}
+<section class="provider">
+	<div class="container">
+		<div class="main-provider">
+			<div class="provider-text">
+				{% if section.settings.story_img != blank %}<img src="{{ section.settings.story_img | img_url:'master' }}" class="story-img">{% endif %}
+				{% if section.settings.story_text != blank %}<span class="story-text">{{ section.settings.story_text }}</span>{% endif %}
+				{% if section.settings.provider_title != blank %}<h2 class="section--inner--heading">{{ section.settings.provider_title }}</h2>{% endif %}
+				{% if section.settings.provider_text != blank %}<p class="section--inner--sub--text">{{ section.settings.provider_text }}</p>{% endif %}
+			</div>
+			<div class="provider-img">
+				{% if section.settings.provider_img != blank %}<img src="{{ section.settings.provider_img | img_url:'master' }}">{% endif %}
+				<div class="side-img">
+					{% if section.settings.side_img != blank %}<img src="{{ section.settings.side_img | img_url:'master' }}">{% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Image Text",
+    "settings": [
+    	{
+    		"type" : "image_picker",
+    		"id" : "story_img",
+    		"label" : "Add Image"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "story_text",
+    		"label" : "Add Sub Text"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "provider_title",
+    		"label" : "Add Title"
+    	},
+    	{
+    		"type" : "richtext",
+    		"id" : "provider_text",
+    		"label" : "Add Text"
+    	},
+    	{
+    		"type" : "image_picker",
+    		"id" : "provider_img",
+    		"label" : "Add Image"
+    	},
+    	{
+    		"type" : "image_picker",
+    		"id" : "side_img",
+    		"label" : "Add Image"
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Image Text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

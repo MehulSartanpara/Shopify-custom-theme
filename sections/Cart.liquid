@@ -1,0 +1,154 @@
+<section>
+  <div class="cart-page">
+    <div class="container">
+      {% if cart.item_count >= 1 %}
+      <form action="/cart" method="post" class="cart_item--form">
+      <div class="cart--page--content">
+        <div class="cart--page--title">
+          <div class="about-title">
+            {% if section.settings.title != blank %}
+              <h2>{{ section.settings.title }}</h2>
+            {% endif %}
+            {% if section.settings.sub_title != blank %}
+              <p>{{ section.settings.sub_title }}</p>
+            {% endif %}
+          </div>
+        </div>     
+        <div class="cart-product-container">
+          <div class="cart-product-content">
+            <div class="cart--product--list">
+               {% for item in cart.items %}
+              <div class="cart--main--product--list" data-item-id="{{ item.id }}" data-item-id-2="{{ forloop.index }}" >
+                <div class="loader---container">
+                   <div class="load"></div>
+                </div>
+                <div class="cart-product-images-container">
+                   <a href="{{ item.url }}">
+                    <img class="cart__image" src="{{ item | img_url: 'x190' }}" alt="{{ item.image.alt | escape }}">
+                  </a>
+                </div>
+                <div class="cart-product-title-container">
+                  <div class="cart-product-title-verient">
+                    <div class="cart---product---title">
+                        <a href="{{ item.url }}" class="cart__product-title" data-cart-item-title data-role="product-title">
+                          {{ item.product.title }}
+                        </a>
+                    </div>
+                    <div class="cart---product---verient">
+                      {%- assign variant_options = 'template ' | split: ' ' -%}
+                        {%- if item.product.has_only_default_variant != true -%}
+                          {%- assign variant_options = item.options_with_values -%}
+                        {%- endif -%}
+                        {%- assign property_size = item.properties | size -%}    
+                        <ul class="product-details">
+                            {%- for option in variant_options -%}
+                              <li class="product-details__item product-details__item--variant-option">{{ option.value }}</li>
+                            {%- endfor -%}                                 
+                        </ul>
+                  </div>
+                 <div class="cart-product-price-verient--mobile">
+                    <span class="order-discount cart__product-title">{{ item.original_price | money }}</span>
+                  </div>
+                  <div class="cart-product-title-qty-box">
+                    <div class="quantity-container">
+                        <div class="product-form__input product-form__quantity">
+                         <div class="quantity-container">
+                            <div class="quantity-box">
+                              <div class="qtybox">
+                                <span class="btnqty qtyminus icon icon-minus">-</span>
+                                <input type="text" id="quantity" name="quantity" value="{{ item.quantity }}"  class="quantity-selector quantity-input" readonly="" >
+                                <span class="btnqty qtyplus icon icon-plus">+</span>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+                </div>
+                </div>
+                <div class="cart-product-price-container">
+                  <div class="cart-product-price-verient">
+                    <span class="order-discount cart__product-title">{{ item.original_price | money }}</span>
+                  </div>
+                  <div class="cart-product-remove-link">
+                    <a href="" class="text-link text-link--accent product-details__item" data-cart-remove data-role="product-remove">{{ 'sections.cart.remove_title' | t: title: item.title }}</a>
+                  </div>
+                </div>
+            </div>
+            <hr>
+          {% endfor %}        
+        </div>                       
+            <div class="cart--product--details">
+              <div class="cart--product--details--content">
+                <div class="cart--product--subtotal-count">
+                  <p class="product-details__item">{{ 'sections.cart.subtotal' | t }}</p>
+                   <span class="cart-subtotal__price product-details__item">{{ cart.total_price | money }}</span>
+                </div>
+                <div class="cart--product--subtotal-count">
+                  <p class="product-details__item">{{ 'sections.cart.shipping' | t }}</p>
+                   <span class="cart-subtotal__price product-details__item">{{ 'sections.cart.shipping_free' | t }}</span>
+                </div>
+                <hr>
+                <div class="cart-products-total-count">
+                  <p>{{ 'sections.cart.cart_total' | t }}</p>
+                  <span class="cart-subtotal__price product-details__item">{{ cart.total_price | money }}</span>
+                </div>
+                <div class="cart--products--checkout--content">
+                  <div class="cart--products--checkout--btn">
+                    <a href="/checkout" class="btn primary-btn">{{ 'sections.cart.checkout' | t }}</a>
+                  </div>
+                  <div class="cart--products--checkout--continue-shopping">
+                     <a href="collections/all" class="btn wishlist">{{ 'sections.cart.continue_shopping' | t }}</a>
+                  </div>
+                </div>
+              </div>
+            </div>         
+        </div>        
+      </div>
+    </div>
+    </form>
+      {% else %}
+    <div class="if--cart--is--emty">
+      <div class="if--cart--is--emty-content">
+        <div class="cart--page--title">
+          <div class="about-title">           
+              <h2>{{ 'sections.cart.empty' | t }}</h2>                      
+              <p><a href="/collections/all">{{ 'sections.cart.continue_shopping' | t }}</a></p>           
+          </div>
+        </div>   
+      </div>
+    </div>
+      {% endif %}
+  </div>
+</section>
+               
+{% schema %}
+  {
+    "name": "Cart",
+    "settings": [
+          {
+            "type": "text",
+            "id": "title",
+            "label": "Title"
+          },
+          {
+            "type": "text",
+            "id": "sub_title",
+            "label": "Text"
+          }
+	
+],
+"presets": [
+      {
+        "name": "Cart",
+        "category": "cart"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

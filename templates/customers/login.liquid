@@ -1,0 +1,193 @@
+{% section 'login-title' %}
+<section class="login-form">
+	<div class="container">
+		<div class="login-main">
+			<div class="login-left-content">
+				{%- form 'customer_login', novalidate: 'novalidate' -%}
+					<div class="login-input">
+						<label for="CustomerEmail">{{ 'customer.login_page.email' | t }}</label>
+						<input type="email" name="customer[email]" id="CustomerEmail" autocomplete="email" autocorrect="off" autocapitalize="off" {% if form.errors contains 'form' %}aria-invalid="true"{% endif %}>
+					</div>
+					<div class="login-input">
+						<label for="CustomerPassword">{{ 'customer.login_page.password' | t }}</label>
+						<input type="password" value="" name="customer[password]" id="CustomerPassword" autocomplete="current-password" {% if form.errors contains 'form' %}aria-invalid="true"{% endif %}>
+						<a href="#recover"><span>{{ 'customer.login_page.forgot_password' | t }}</span></a>
+					</div>
+					<button type="submit" class="btn primary-btn">{{ 'customer.login_page.sign_in' | t }}</button>
+				{%- endform -%}
+			</div>
+			<div class="login-right-content">
+                <div class="about-title">
+        			<h2>{{ 'customer.register.title' | t }}</h2>
+        		</div>
+				{%- form 'create_customer', novalidate: 'novalidate' -%}
+					<div class="login-input">
+						<label for="RegisterForm-FirstName">{{ 'customer.register.first_name' | t }}</label>
+						<input type="text" name="customer[first_name]" id="RegisterForm-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name">
+					</div>
+					<div class="login-input">
+						<label for="RegisterForm-LastName">{{ 'customer.register.last_name' | t }}</label>
+						<input type="text" name="customer[last_name]" id="RegisterForm-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name">
+					</div>
+					<div class="login-input">
+						<label for="RegisterForm-email">{{ 'customer.register.email' | t }}</label>
+						<input type="email" name="customer[email]" id="RegisterForm-email" {% if form.email %} value="{{ form.email }}"{% endif %} spellcheck="false" autocapitalize="off" autocomplete="email" aria-required="true" {% if form.errors contains 'email' %} aria-invalid="true" aria-describedby="RegisterForm-email-error" {% endif %}>
+					</div>
+					<div class="login-input">
+						<label for="RegisterForm-password">{{ 'customer.register.password' | t }}</label>
+						<input type="password" name="customer[password]" id="RegisterForm-password" aria-required="true" {% if form.errors contains 'password' %}aria-invalid="true" aria-describedby="RegisterForm-password-error"{% endif %}>
+					</div>
+					<div class="login-input">
+						<label>{{ 'customer.reset_password.password_confirm' | t }}</label>
+						<input type="password" name="customer[password]" id="RegisterForm-password" aria-required="true" {% if form.errors contains 'password' %}aria-invalid="true" aria-describedby="RegisterForm-password-error"{% endif %}>
+					</div>
+					<button type="submit" class="btn primary-btn">{{ 'customer.register.submit' | t }}</button>
+				{%- endform -%}
+			</div>
+		</div>
+	</div>
+</section>
+
+{% section 'shipping' %}
+
+<style>
+  .login-form {
+      padding: 158px 0 20px;
+  }
+  .login-main {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+  }
+  .login-left-content {
+      flex: 0 0 50%;
+      max-width: 50%;
+      position: relative;
+      padding-right: 125px;
+  }
+  .login-right-content {
+      max-width: 50%;
+      flex: 0 0 50%;
+      padding-left: 125px;
+  }
+  .login-right-content .about-title{
+      display: none;
+  }
+  .login-left-content:after {
+      border-right: 1px solid #000;
+      height: 904px;
+      width: 0;
+      content: '';
+      position: absolute;
+      right: 0;
+      top: -100px;
+  }
+  .login-input label {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 22px;
+      color: #000000;
+      display: block;
+      padding-bottom: 10px;
+  }
+  .login-input input {
+      border: 1px solid #000000;
+      margin-bottom: 35px;
+      min-height: 72px;
+      max-width: 685px;
+      width: 100%;
+      padding: 10px 15px;
+      font-size: 20px;
+  }
+  .login-main button.btn.primary-btn {
+      max-width: 679px;
+      width: 100%;
+      margin-top: 15px;
+  }
+  .login-right-content button.btn.primary-btn{
+      max-width: 674px;
+  }
+  .login-left-content button.btn.primary-btn{
+      margin-top: 50px;
+  }
+  .login-input {
+      position: relative;
+  }
+  .login-input a span {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 22px;
+      color: #C4C4C4;
+      position: absolute;
+      top: 75%;
+      right: 0;
+  }
+
+  @media (max-width:1400px){
+      .login-left-content{
+          padding-right: 30px;
+      }
+      .login-right-content {
+          padding-left: 30px;
+      }
+  }
+  @media (max-width:767px){
+    .login-form {
+        padding: 50px 0 20px;
+    }
+    .login-main{
+        padding: 0 25px;
+    }
+    .login-left-content {
+        flex: 0 0 100%;
+        max-width: 100%;
+        padding-right: 0;
+    }
+    .login-right-content {
+        max-width: 100%;
+        flex: 0 0 100%;
+        padding: 100px 0 0 0;
+    }
+    .login-right-content .about-title{
+        display: block;
+    }
+    .login-right-content .about-title h2 {
+        padding: 0 0 50px;
+    }
+    .login-left-content:after {
+        border-bottom: 1px solid #000;
+        height: 1px;
+        width: 100%;
+        top: 430px;
+    }
+    .login-input input{
+        min-height: 65px;
+        max-width: 100%;
+    }
+    .login-right-content button.btn.primary-btn, .login-left-content button.btn.primary-btn {
+        max-width: 99%;
+    }
+    .login-input a span{
+        font-size: 15px;
+    }
+  }
+  @media (max-width:600px){
+      .login-right-content{
+          padding: 110px 0 0 0;
+      }
+  }
+  @media (max-width:480px){
+      .login-left-content:after{
+          top: 420px;
+      }
+      .login-right-content {
+          padding: 100px 0 0 0;
+      }
+      .login-form .primary-btn{
+          padding: 12px 14px;
+          font-size: 30px;
+      }
+  }
+</style>

@@ -1,0 +1,55 @@
+{{ 'rank-detail.css' | asset_url | stylesheet_tag }}
+<section class="rank-detail">
+	<div class="container">
+		<div class="rank-content">
+			{% for block in section.blocks %}
+				<div class="content-detail">
+					{% if block.settings.rank_img != blank %}<img src="{{ block.settings.rank_img | img_url:'master' }}">{% endif %}
+					{% if block.settings.title != blank %}<h4>{{ block.settings.title }}</h4>{% endif %}
+					{% if block.settings.rank != blank %}<h3>{{ block.settings.rank }}</h3>{% endif %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Rank-detail",
+    "settings": [],
+    "blocks": [
+    	{
+    		"type" : "block",
+    		"name" : "text",
+    		"settings" : [
+    			{
+		    		"type" : "image_picker",
+		    		"id" : "rank_img",
+		    		"label" : "Add Image"
+		    	},
+		    	{
+		    		"type" : "text",
+		    		"id" : "title",
+		    		"label" : "Add Title"
+		    	},
+		    	{
+		    		"type" : "text",
+		    		"id" : "rank",
+		    		"label" : "Add Text"
+		    	}
+    		]
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Rank-detail"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

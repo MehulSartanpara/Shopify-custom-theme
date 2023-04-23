@@ -1,0 +1,42 @@
+<copy-right>
+  <div class="copy-right">
+    <div class="container">
+      <div class="copy-right-content">
+        <div class="copy-right-text">
+          <p>{{ 'general.password_page.powered_by_shopify_html' | t }}</p>
+        </div>
+         {%- assign menu = section.settings.menu -%}       
+        <div class="copy-right-links">        
+          <ul>
+              {%- for link in linklists[menu].links -%}   
+               <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+          </ul>        
+        </div>
+      </div>
+    </div>
+  </div>
+</copy-right>
+
+
+
+{% schema %}
+  {
+    "name": "copy-right",
+    "settings": [  
+              {
+                "type": "link_list",
+                "id": "menu",
+                "label": "Menu"
+              }
+	
+],
+"presets": [
+      {
+        "name": "copy-right",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+

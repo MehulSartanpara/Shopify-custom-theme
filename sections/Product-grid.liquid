@@ -1,0 +1,194 @@
+<section>
+  <div class="collection-container">
+    <div class="container">
+      <div class="collections-content">       
+        <div class="collection--main--content">
+          {% if section.settings.enable_all_menu %}
+          <div class="collection--filters-content"> 
+            <div class="filter--title-container">
+              <h3>Filters</h3>
+              <a href="javascript:void(0)" class="close--filter--drawer"><img src="{{ 'wrong (3) 1.png' | asset_img_url: 'master' }}" /></a>
+            </div>
+            <div class="breadcrumb--content">
+              {% include 'Breadcrumb' %}
+            </div>
+          <!-- Filter Start -->
+            <div class="main-filter-content">
+              {% include 'facets',
+              enable_sorting: section.settings.enable_sorting,
+              enable_filter_menu : section.settings.enable_filter_menu,
+              enable_filter: section.settings.enable_filter %}
+            </div>
+          <!--filter End -->         
+          </div> 
+            {% endif %}
+          <div class="collection--product--list {% if section.settings.enable_all_menu  %}{% else %}disable-collection--filters{% endif %}">
+            <div class="collection--product--main--list">
+                <div class="collection--title-container">
+                  <div class="about-title">
+                    <h2>{{ collection.title }}</h2>
+                    <a href="javascript:void(0)" class="btn primary-btn filter-btn">Filter <img src="{{ 'edit(1)1.png' | asset_img_url: 'master' }}" /></a>
+                  </div>
+                </div>
+                <div class="collection--product---content">
+                   <div class="collection--page--product--main">   
+                      <div class="loader---container">
+                         <div class=""></div>
+                      </div>
+                      {% assign num_product = section.settings.num_product %}
+                      {% paginate collection.products by num_product %}
+                      {% for product in collection.products %}  
+                        <div class="colletion--product--item--col product-item-hover colletion--product--item-{{ section.settings.number_row }} colletion--product--item-mobile-{{ section.settings.number_row_mob }}" >
+                           {% render 'card-product', 
+                             product:product,
+                             cart_icon: section.settings.cart_icon,
+                             show_second_img : section.settings.show_second_img,
+                             show_review: section.settings.show_review,
+                             enable_wishlist: section.settings.enable_wishlist,
+                             enable_quick_view: section.settings.enable_quick_view
+                           %}           
+                        </div>
+                         {% endfor %}
+                          <div class="pagination--snippets">
+                            {% include 'pagination' %}
+                          </div>
+                        {% endpaginate %}
+                    </div>                
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+  {
+    "name": "Product grid",
+    "settings": [
+        {
+          "type": "range",
+          "id": "num_product",
+          "min": 6,
+          "max": 18,
+          "step": 1,
+          "label": "Products per page",
+          "default": 9
+        },
+        {
+          "type": "range",
+          "id": "number_row",
+          "min": 1,
+          "max": 5,
+          "step": 1,
+          "label": "Number of columns on desktop",
+          "default": 3
+        },
+        {
+          "type": "range",
+          "id": "number_row_mob",
+          "min": 1,
+          "max": 3,
+          "step": 1,
+          "label": "Number of columns on mobile",
+          "default": 1
+        },
+        {
+          "type": "header",
+          "content": "Product Cart"
+        },
+        {
+          "type": "checkbox",
+          "id": "show_second_img",
+          "label": "Show second image on hover",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_review",
+          "label": "Show product rating",
+          "default": false
+        },
+         {
+          "type": "checkbox",
+          "id": "enable_wishlist",
+          "label": "Enable Wishlist icon",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "cart_icon",
+          "label": "Enable Cart Icon",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_quick_view",
+          "label": "Enable Quick View",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_add_to_cart",
+          "label": "Enable Add To Cart Button",
+          "default": false
+        },
+        {
+          "type": "checkbox",
+          "id": "show_view_more",
+          "label": "Enable View More Button",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_all_menu",
+          "label": "Enable All Filter",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Filter And Sorting"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_sorting",
+          "label": "Enable Sorting",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_filter",
+          "label": "Enable Filter",
+          "default": true
+        },
+        {
+          "type": "header",
+          "content": "Filter Menu"
+        },
+        {
+          "type": "checkbox",
+          "id": "enable_filter_menu",
+          "label": "Enable Menu Filter",
+          "default": true
+        },
+        {
+          "type": "link_list",
+          "id": "menu",
+          "label": "Collection List [ for filter ]"
+        }
+        	
+],
+"presets": [
+      {
+        "name": "Product grid",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

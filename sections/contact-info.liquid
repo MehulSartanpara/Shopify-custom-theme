@@ -1,0 +1,52 @@
+{{ 'contact-info.css' | asset_url | stylesheet_tag }}
+<section class="contact-info">
+	<div class="container">
+		<div class="main-contact-info">
+          {% for block in section.blocks %}
+			<div class="main-contact-details">
+				<div class="contact-img">
+					{% if block.settings.contact_img != blank %}<img src="{{ block.settings.contact_img | img_url:'master' }}">{% endif %}
+				</div>
+				{% if block.settings.title != blank %}<p>{{ block.settings.title }}</p>{% endif %}
+			</div>
+          {% endfor %}
+		</div>
+	</div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Contact-info",
+    "settings": [],
+    "blocks": [
+        {
+        "type": "block",
+        "name": "title", 		
+          "settings": [
+            {
+        		"type" : "image_picker",
+        		"id" : "contact_img",
+        		"label" : "Add Image"
+        	},
+        	{
+        		"type" : "richtext",
+        		"id" : "title",
+        		"label" : "Add Text"
+        	}      		
+          ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Contact-info"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

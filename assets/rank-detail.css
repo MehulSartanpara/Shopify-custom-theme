@@ -1,0 +1,51 @@
+    .rank-detail{
+        padding: 100px 0;
+    }
+    .rank-content {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        text-align: center;
+    }
+    .content-detail img {
+        max-width: 60px;
+    }
+	.rank-content h4{
+		font-style: normal;
+		font-weight: 400;
+		font-size: 30px;
+		line-height: 29px;
+		letter-spacing: 0.03em;
+		color: #000000;
+        padding: 10px 0 14px;
+	}
+	.rank-content h3{
+		font-style: normal;
+		font-weight: 700;
+		font-size: 50px;
+		line-height: 42px;
+		letter-spacing: 0.03em;
+		color: #000000;
+	}
+
+    @media (max-width:1024px){
+        .rank-content h4{
+            font-size: 20px;
+            padding: 6px 0 4px;
+        }
+        .rank-content h3{
+            font-size: 25px;
+            line-height: 29px;
+        }
+    }
+    @media(max-width:767px){
+      .rank-detail {
+          padding: 50px 0;
+      }
+      .rank-content {
+          grid-template-columns: repeat(2, 1fr);
+          grid-gap: 50px;
+      }
+      .content-detail img {
+          max-width: 40px;
+      }
+    }

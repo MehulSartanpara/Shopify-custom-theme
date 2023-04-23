@@ -1,0 +1,32 @@
+{{ 'Rich-text.css' | asset_url | stylesheet_tag }}
+<section class="contact-detail">
+	<div class="container">
+		<div class="contact-text">
+			{% if section.settings.contact_info != blank %}<p>{{ section.settings.contact_info }}</p>{% endif %}
+		</div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Rich text",
+    "settings": [
+    	{
+    		"type" : "richtext",
+    		"id" : "contact_info",
+    		"label" : "Add Text"
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Rich text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

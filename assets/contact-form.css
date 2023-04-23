@@ -1,0 +1,101 @@
+  .contact-form {
+      padding-bottom: 100px;
+  }
+  .bg-image {
+      max-width: 1222px;
+  }
+  .bg-image img{
+      border-radius: 0px 50px 50px 0px;
+  }
+  .main-contact-detail {
+      position: relative;
+  }
+  .form-detail {
+      max-width: 822px;
+      background-color: #FFE8E7;
+      padding: 17px;
+      position: absolute;
+      top: 45px;
+      right: 150px;
+  }
+  .form-detail h2.section--inner--heading{
+      margin-bottom: 28px;
+  }
+  .form-info {
+      background-color: #FFE8E7;
+      border: 3px dashed #A55A56;
+      padding: 62px 108px 61px 108px;
+  }
+  .form-info p {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 30px;
+      letter-spacing: 0.03em;
+      color: #000000;
+      padding-bottom: 60px;
+  }
+  .form-info ::placeholder {
+      color: #000;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      font-family: 'Tw Cen MT Std';
+  }
+  .form-info input, .form-info textarea {
+      width: 572px;
+      line-height: 40px;
+      background: transparent;
+      margin-bottom: 55px;
+      border: 0;
+      border-bottom: 1px solid #595959;
+  }
+  .form-info textarea {
+      height: 107px;
+  }
+  .contact-form button.btn.primary-btn {
+      width: 240px;
+  }
+
+  @media (max-width:1380px){
+    .form-detail{
+        right: 0;
+    }
+  }
+  @media (max-width:1220px){
+    .form-detail{
+        max-width: 100%;
+        position: unset;
+        padding: 20px 16px;
+        margin: -60px 50px 0 50px;
+    }
+    .form-info {
+        border: 2px dashed #A55A56;
+        padding: 33px 20px 45px;
+    }
+    .form-info input, .form-info textarea{
+        width: 100%;
+        margin-bottom: 30px;
+    }
+    .bg-image img {
+        z-index: -1;
+        position: relative;
+    }
+    .contact-form {
+        padding-bottom: 56px;
+    }
+  }
+  @media (max-width:480px){
+    .form-detail{
+        margin: -60px 15px 0 15px;
+    }
+    .form-info input{
+        margin-bottom: 15px;
+    }
+    .contact-form button.btn.primary-btn {
+        width: 200px;
+    }
+    .form-info textarea {
+        height: 41px;
+    }
+  }

@@ -1,0 +1,225 @@
+<footer>
+  <div class="footer-container">
+    <div class="container">
+      <div class="footer-content">
+     {% for block in section.blocks %}
+     {% case block.type %}       
+     {% when 'Logo_and_description' %}
+       <div class="footer-description" style="width:{{ block.settings.width1 }}%">
+          <div class="footer-logo">
+            {% if block.settings.logo_image != blank %}
+              <a href="/">
+              <img src="{{ block.settings.logo_image | img_url: 'master' }}" />
+              </a>
+            {% endif %}
+          </div>
+          <div class="footer-main-description">
+            {% if block.settings.paragraph != blank %}
+              <p>{{ block.settings.paragraph }}</p>
+            {% endif %}
+          </div>
+          <div class="footer--icons">
+          {% if  block.settings.enable_social_icon %}
+            {% render 'social-icon' %}
+          {% endif %}
+          </div>
+        </div>      
+     {% when 'menu' %}
+     <div class="footer-links-content" style="width:{{ block.settings.width2 }}%">
+        <div class="footer--link--content">
+           <div class="footer--link--one--">              
+              <div class="footer--links-heading">
+                {% if block.settings.menu_1 != blank %}
+                  <p class="footer--heading">{{ block.settings.menu_1 }}</p>
+                {% endif %}
+              </div>
+              {%- assign menu = block.settings.menu -%}
+              {%- for link in linklists[menu].links -%}
+              <div class="footer-link--one">
+                <ul>
+                  <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+                </ul>
+              </div>
+              {%- endfor -%}
+            </div>
+          </div>
+        </div>          
+     {% when 'newsletter' %} 
+      <div class="footer-contact-form" style="width:{{ block.settings.width3 }}%">
+              <div class="footer--contact--inner--form">
+                <div class="footer--links-heading">
+                  {% if block.settings.question != blank %}
+                    <p class="footer--heading">{{ block.settings.question }}</p>
+                  {% endif %}
+                </div>
+                <div class="footer--contact--form-text">
+                  {% if block.settings.answer != blank %}
+                    <p>{{ block.settings.answer }}</p>
+                  {% endif %}
+                </div>
+
+                {% if block.settings.enable_newsletter %}
+                <div class="footer--contact--main--form-">
+                  {%- assign formId = 'Contact_' | append: section.id -%}
+                  {% form 'customer', class: 'contact-form form-single-field' %}
+                    <input type="email"
+                        name="contact[email]"
+                        id="email"
+                        class="input-group__field{% if form.errors %} input--error{% endif %}"
+                        value="{{ form.email }}"
+                        placeholder="Email"
+                        aria-required="true"
+                        autocorrect="off"
+                        autocapitalize="off"
+                        {% if form.errors %}
+                          aria-invalid="true"
+                          aria-describedby="{{ formId }}-email-error"
+                          data-form-status
+                        {% endif %}
+                        >
+                      <div class="i-want">
+                         <input type="submit" name="commit" id="second-input" value="I want in">
+                         <img src="//cdn.shopify.com/s/files/1/0617/0571/5918/t/2/assets/next1.png?v=97580840850651525051651908258">
+                      </div>
+                  {% endform %}
+                </div>
+                {% endif %}
+              </div>
+        </div>     
+     {% endcase %}
+     {% endfor %}
+      </div>
+    </div>
+  </div>
+  {% render 'copy-right',
+     footer_bottom_menu: section.settings.menu, 
+  %}
+</footer>
+
+{% schema %}
+  {
+    "name": "footer",
+    "settings": [
+          {
+              "type": "link_list",
+              "id": "menu",
+              "label": "Menu"
+          },
+          {
+            "type": "checkbox",
+            "id": "enable_copy_right",
+            "default": false,
+            "label": "Enable Copy Right Text"
+          }
+                                     
+          ],
+          "blocks": [
+              {
+                "type": "Logo_and_description",
+                "name": "Logo and Description",
+                "limit": 1,
+                "settings": [
+                  {
+                    "type": "image_picker",
+                    "id": "logo_image",
+                    "label": "Logo image"
+                  },
+                  {
+                    "type": "richtext",
+                    "id": "paragraph",
+                    "label": "Description"
+                  },
+                  {
+                    "type": "range",
+                    "id": "width1",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "width",
+                    "default": 25
+                  },
+                  {
+                    "type": "checkbox",
+                    "id": "enable_social_icon",
+                    "default": false,
+                    "label": "Enable Social Icon"
+                  }
+                ]
+              },
+              {
+                "type": "newsletter",
+                "name": "Newsletter",
+                "limit": 1,
+                "settings": [
+                  {
+                    "type": "text",
+                    "id": "question",
+                    "label": "Text"               
+                  },
+                  {
+                    "type": "text",
+                    "id": "answer",
+                    "label": "Text"               
+                  },
+                  {
+                    "type": "range",
+                    "id": "width3",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "width",
+                    "default": 25
+                  },
+                  {
+                    "type": "checkbox",
+                    "id": "enable_newsletter",
+                    "label": "Enable Newsletter",
+                    "default": false
+                  }
+                  
+                ]
+              },
+              {
+                "type": "menu",
+                "name": "Menu",
+                "settings": [
+                  {
+                    "type": "link_list",
+                    "id": "menu",
+                    "label": "Menu"
+                  },
+                  {
+                    "type": "text",
+                    "id": "menu_1",
+                    "label": "Menu title",
+                    "default": "Links"
+                  },
+                  {
+                    "type": "range",
+                    "id": "width2",
+                    "min": 0,
+                    "max": 100,
+                    "step": 1,
+                    "unit": "%",
+                    "label": "width",
+                    "default": 25
+                  }
+                ]
+              }
+          ],
+"presets": [
+      {
+        "name": "footer",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

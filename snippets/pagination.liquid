@@ -1,0 +1,93 @@
+<div class="pagination--snippets-content">
+  {%- if paginate.pages > 1 -%}
+      <nav role="navigation">
+        <ol class="pagination">
+          {%- if paginate.previous-%}
+            <li>
+              <a href="{{ paginate.previous.url }}">
+                <span aria-hidden="true"></span>
+                <img src="{{ 'next (5) 2.png' | asset_img_url: 'master' }}" /> <span class="visuallyhidden"></span>
+              </a>
+            </li>
+          {%- else -%}
+            <li class="disabled">
+              <span aria-hidden="true"></span>
+              <img src="{{ 'next (5) 2.png' | asset_img_url: 'master' }}" /> <span class="visuallyhidden"></span>
+            </li>
+          {%- endif -%}
+  
+          {%- for part in paginate.parts -%}
+            {%- if part.is_link -%}
+              <li>
+                <a href="{{ part.url }}">
+                  <span class="visuallyhidden">page</span> {{ part.title }}
+                </a>
+              </li>
+            {%- else -%}
+              {%- if part.title == paginate.current_page -%}
+                <li class="active" aria-current="page">
+                  <span class="visuallyhidden">page</span> {{ part.title }}
+                </li>
+              {%- else -%}
+                <li>
+                  <span class="visuallyhidden">page</span> {{ part.title }}
+                </li>
+              {%- endif -%}
+            {%- endif -%}
+          {%- endfor -%}
+  
+          {%- if paginate.next -%}
+            <li>
+              <a href="{{ paginate.next.url }}">
+                <img src="{{ 'next (5) 1 (1).png' | asset_img_url: 'master' }}" /> <span class="visuallyhidden">page</span>
+                <span aria-hidden="true"></span>
+              </a>
+            </li>
+          {%- else -%}
+            <li class="disabled">
+              <img src="{{ 'next (5) 1 (1).png' | asset_img_url: 'master' }}" /> <span class="visuallyhidden">page</span>
+              <span aria-hidden="true"></span>
+            </li>
+          {%- endif -%}
+        </ol>
+      </nav>
+  {%- endif -%}
+</div>
+
+
+<style>
+.visuallyhidden {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+  white-space: nowrap;
+}
+  
+.pagination li {
+    display: inline;
+    margin: 0 10px;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 30px;
+    line-height: 33px;
+    color: #FFFFFF;
+    padding: 10px 10px 10px 15px;
+}
+.pagination .active{
+   background: #A55A56;
+}
+.pagination li img {
+   padding-top: 7px;
+}
+.pagination--snippets {
+  width: 100%;
+  text-align: center;
+  padding-top: 55px;
+}
+
+</style>

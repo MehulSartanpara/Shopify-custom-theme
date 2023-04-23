@@ -1,0 +1,49 @@
+ .banner-image-with-text {
+      background-color: #FDE3E5;
+  }
+  .banner-text-detail {
+      position: relative;
+  }
+  .banner-box {
+      position: absolute;
+      right: 150px;
+      top: 30%;
+      text-align: center;
+  }
+  .banner-box legend, .banner-box h4, .banner-box p{
+      font-style: normal;
+      font-weight: 400;
+      font-size: 20px;
+      line-height: 50px;
+      letter-spacing: 0.07em;
+      color: #000000;
+  }
+  .banner-box fieldset{
+      padding: 0 48px 43px;
+      border-width: 1px;
+      border-color: #000;
+  }
+  .banner-box a {
+      margin-top: 29px;
+  }
+  @media (max-width:1320px){
+      .banner-box{
+          right: 20px;
+          top: 15%;
+      }
+  }
+  @media (max-width:1024px){
+      .banner-box{
+          position: unset;
+          padding: 50px 34px
+      }
+      .banner-box fieldset{
+          padding: 0 24px 50px;
+      }
+  }
+  @media (max-width:479px){
+      .banner-box legend, .banner-box h4, .banner-box p{
+          font-size: 15px;
+          line-height: 30px;
+      }
+  }

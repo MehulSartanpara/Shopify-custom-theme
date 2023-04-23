@@ -1,0 +1,5 @@
+<h2 class="main-product-title main--product--price">{{ product.price | money }}</h2>
+{% if product.compare_at_price > product.price %}
+  <span class="main--product--price--compare_at {% if product.compare_at_price < product.price %}main--product--price--compare_at_hide{% endif %}">{{ product.compare_at_price | money }}</span>
+{% endif %}
+

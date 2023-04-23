@@ -1,0 +1,12 @@
+.trending--item--box.slick-initialized .slick-slide {
+    padding: 0 10px; 
+} 
+.trending--item--box.slick-initialized .trending--item--col {
+    flex: unset;
+    max-width: unset;
+    margin: unset;
+}  
+.trending--item--box.slick-initialized .slick-prev:before, 
+.trending--item--box.slick-initialized .slick-next:before{
+  font-size:0px;
+}  

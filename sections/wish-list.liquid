@@ -1,0 +1,150 @@
+{{ 'wish-list.css' | asset_url | stylesheet_tag }}
+<section>
+  <div class="wishlist--conatiner">
+    <div class="container">
+      <div class="wishlist-content">
+        <div class="wish--list--heading">
+            <div class="about-title">
+              <h2>Wishlist</div>
+            </div>
+            <div class="btn--wishlist" style="display:none;">
+              <a href="javascript:void(0)" class="btn primary-btn remove-all-wishlist-product">Clear All</a> 
+              <a href="javascript:void(0)" class="btn primary-btn wishlist-btn-sec add-all-wishlist--product" >Add All To Cart</a> 
+            </div>
+        </div>
+        <div class="wish--list---products whishlist-container">  
+        </div>
+        {% comment %}
+        <div class="wish--list---products">
+          <div class="wish--list---products--content empty-wish--list---products">
+            <h3>Your Wishlist is Empty...!</h3>
+            <a href="/collection/all">Continue Shopping</a>
+          </div>
+        </div>
+        {% endcomment %}
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% comment %}   Js Must be here      {% endcomment %}        
+<script>
+  let moneyformat = '{{shop.money_format}}';
+  function whishListInit(){
+  let removewhishList = document.getElementsByClassName('removeWhishlist');
+  for (item of removewhishList) {
+      item.addEventListener('click',(event)=>{
+        event.preventDefault();
+        let productHandle = event.target.closest('.trending--item--add--to--cart').querySelector('.removeWhishlist').getAttribute("data-prouduct-handle");
+        let whishlistStrigify = localStorage.getItem('whishList');
+        let jsonwishList = JSON.parse(whishlistStrigify);
+        let index = jsonwishList.indexOf(productHandle);
+        if (index !== -1) jsonwishList.splice(index, 1);
+        if (index !== -1) event.target.closest('.wishlist-product-container').remove();
+          localStorage.setItem("whishList",JSON.stringify(jsonwishList));
+      });
+  }  
+  }
+
+  let checklist = localStorage.getItem('whishList');
+  let whishListContainer = document.getElementsByClassName('whishlist-container')[0];
+ if(checklist != null){
+  let ListItem = JSON.parse(checklist);
+   let productListhtml ='';
+   whishListContainer.innerHTML='';
+   let count = 0;
+  for(product of ListItem){
+    
+    jQuery.getJSON(window.Shopify.routes.root + 'products/'+product+'.js', function(product) {
+      let listProductitem = `<div class="wishlist-product-container product--item--colunm-padding">           
+                <div class="product--item--col wishlist-product-container--inner product-item-hover ">  
+                    <a href="javascript:void(0)" class="product-item--add-bag" {% if product.selected_or_first_available_variant.available == false %}style="opacity: 0.5;"{% endif %}>
+                      {% render 'cart-icon' %}
+                    </a>
+                    <a href="javascript:void(0)" class="product-item--add-wishlist product-added-to-wishlist" data-prouduct-handle="${product.handle}">
+                      {% render 'wishlist-icon' %}
+                    </a>
+                    <div class="trending--item--image">
+                        <a class="" href="${product.url}">
+                          <img class="item-first-image image" src="${product.featured_image}" alt="">
+                        </a>
+                      </div>
+                      <div class="trending--item--price">
+                        <p class="product-item--price">${Shopify.formatMoney(product.price,moneyformat)}</p>
+                      </div> 
+                      <div class="trending--item--title">
+                        <p class="product-item--title">${product.title}</p>
+                      </div>
+                  <div class="trending--item--add--to--cart">
+                      <form method="post" action="/cart/add">
+                             <input type="hidden" name="id" value="${product.variants[0].id}" class="variants__id">
+                              <input type="hidden" name="quantity" value="1" class="variants__quantity">
+                             <input type="submit" value="Add To Cart" class="product-item--add-to-cart add-all-product__to__cart"
+                              >
+                      </form>
+                      <div class="wishlist-remove-product removeFromwhishlist">
+                        <a href="#" class="product-item--add-to-cart removeWhishlist" data-prouduct-handle="${product.handle}">Remove</a>
+                      </div>
+                  </div>
+                </div>             
+           </div>`;
+      whishListContainer.innerHTML = whishListContainer.innerHTML + listProductitem;
+      count = count + 1;
+       if(count == ListItem.length){
+         whishListInit();  
+    }
+      if(ListItem.length == 0){
+        
+      }else{
+        $('.btn--wishlist').css('display','block');
+      
+      }
+    });  
+  }
+ }
+
+// remove product when click in wishlist Icon
+$(document).on("click",".product-item--add-wishlist",function() {
+    let productHandle = event.target.closest('.wishlist-product-container').querySelector('.product-item--add-wishlist').getAttribute("data-prouduct-handle");
+    console.log(productHandle);
+    let whishlistStrigify = localStorage.getItem('whishList');
+        let jsonwishList = JSON.parse(whishlistStrigify);
+        let index = jsonwishList.indexOf(productHandle);
+        if (index !== -1) jsonwishList.splice(index, 1);
+        if (index !== -1) event.target.closest('.wishlist-product-container').remove();
+          localStorage.setItem("whishList",JSON.stringify(jsonwishList));
+  });
+  
+</script>
+
+
+                
+
+{% schema %}
+  {
+    "name": "wish-list",
+    "settings": [
+          {
+            "type": "product",
+            "id": "product",
+            "label": "Product"
+          }
+  	
+],
+"presets": [
+      {
+        "name": "wish-list",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+

@@ -1,0 +1,187 @@
+{{ 'hero-section.css' | asset_url | stylesheet_tag }}
+<div class="hero-section">
+  <div class="hero-section-banner">
+    <div class="banner-section-inner">
+      <div class="left-banner-image">
+        {% if section.settings.left_side_img != blank %}
+          <div class="left-banner-image-inner">
+            <img class="lazyload" 
+              src="{{ section.settings.left_side_img | img_url: 'master' }}" alt="left-banner-image"
+              data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+              >
+          </div>
+        {% endif %}
+        {% if section.settings.left_side_bottom_img != blank %}
+            <div class="left-banner-bottom">
+               <img class="lazyload"
+                 src="{{ section.settings.left_side_bottom_img | img_url: 'master' }}" alt="left-banner-bottom-image"
+                  data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                 >
+            </div>
+        {% endif %}
+      </div>
+      <div class="center-banner-text">
+        <div class="center-banner-text-inner">
+          {% if  section.settings.center_top != blank or section.settings.title != blank or section.settings.subtitle != blank or section.settings.desc != blank or section.settings.banner_btn != blank %}
+          <fieldset>
+            {% if section.settings.center_top != blank %}
+              <legend>{{ section.settings.center_top }}</legend>
+            {% endif %}
+            {% if section.settings.title != blank %}
+              <h3>{{ section.settings.title }}</h3>
+            {% endif %}
+            {% if section.settings.subtitle != blank %}
+              <h5>{{ section.settings.subtitle }}</h5>
+            {% endif %}
+            {% if section.settings.desc != blank %}
+            <div class="center-banner-desc">
+              {{ section.settings.desc }}
+            </div>
+            {% endif %}
+            {% if section.settings.banner_btn != blank %}
+              <a class="btn primary-btn" href="{% if section.settings.banner_btn_url != blank %}{{ section.settings.banner_btn_url }}{% else %}javascript:void(0){% endif %}">
+                {{ section.settings.banner_btn }}
+              </a>
+            {% endif %}
+          </fieldset>
+          {% endif %}
+        </div>
+      </div>
+      <div class="right-banner-image">
+        {% if section.settings.right_side_img != blank %}
+          <div class="right-banner-image-inner">
+            <img class="lazyload" src="{{ section.settings.right_side_img | img_url: 'master' }}" alt="right-banner-image"
+              data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+              >
+          </div>
+        {% endif %}
+        {% if section.settings.right_side_bottom_img != blank %}
+            <div class="right-banner-bottom">
+               <img class="lazyload" src="{{ section.settings.right_side_bottom_img | img_url: 'master' }}" alt="right-banner-bottom-image"
+                 data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                 >
+            </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.hero-section .hero-section-banner{
+    padding-top: {{ section.settings.padding_top }}px;
+    padding-bottom: {{ section.settings.padding_bottom }}px;
+    background: {{ section.settings.background }};
+}  
+</style>
+{% schema %}
+  {
+    "name": "Hero Section",
+    "settings": [
+        {
+          "type": "range",
+          "id": "padding_top",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "label": "Banner Padding Top",
+          "default": 100
+        },
+        {
+          "type": "range",
+          "id": "padding_bottom",
+          "min": 0,
+          "max": 200,
+          "step": 2,
+          "label": "Banner Padding Bottom",
+          "default": 100
+        },
+        {
+          "type": "color",
+          "id": "background",
+          "label": "Select Background Color",
+          "default": "#F2C1BF"
+        },
+        {
+          "type": "header",
+          "content": "Left Side Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "left_side_img",
+          "label": "Insert Left Side Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "left_side_bottom_img",
+          "label": "Insert Left Side Bottom Image"
+        },
+        {
+          "type": "header",
+          "content": "Center Banner Text"
+        },
+        {
+          "type": "text",
+          "id": "center_top",
+          "label": "Enter center Top text"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Enter Title"
+        },
+        {
+          "type": "textarea",
+          "id": "subtitle",
+          "label": "Enter Sub Title"
+        },
+        {
+          "type": "richtext",
+          "id": "desc",
+          "label": "Enter Desc"
+        },
+        {
+          "type": "text",
+          "id": "banner_btn",
+          "label": "Enter Button Name"
+        },
+        {
+          "type": "url",
+          "id": "banner_btn_url",
+          "label": "Select Banner Button URL"
+        },
+        {
+          "type": "header",
+          "content": "Right Side Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "right_side_img",
+          "label": "Insert Right Side Image"
+        },
+        {
+          "type": "image_picker",
+          "id": "right_side_bottom_img",
+          "label": "Insert Right Side Bottom Image"
+        }
+        
+      ],
+    "presets": [
+      {
+        "name":"Hero Section"
+      }
+    ]
+  }
+{% endschema %}

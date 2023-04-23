@@ -1,0 +1,39 @@
+{{ 'address-title.css' | asset_url | stylesheet_tag }}
+<section class="address-title">
+	<div class="container">
+		<div class="about-title">
+			{% if section.settings.about_title != blank %}<h2>{{ section.settings.about_title }}</h2>{% endif %}
+            {% if section.settings.about_text != blank %}<a href="/">{{ section.settings.about_text }}</a>{% endif %}
+		</div>
+	</div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "Address-title Section",
+    "settings": [
+      {
+        "type" : "text",
+        "id" : "about_title",
+        "label" : "Add Title"
+      },
+      {
+        "type" : "text",
+        "id" : "about_text",
+        "label" : "Add Text"
+      }
+    ],
+    "presets": [
+      {
+        "name":"Address-title Section"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

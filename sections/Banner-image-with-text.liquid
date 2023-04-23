@@ -1,0 +1,68 @@
+{{ 'Banner-image-with-text.css' | asset_url | stylesheet_tag }}
+<section class="banner-image-with-text">
+	<div class="banner-text-detail">
+		{% if section.settings.banner_img != blank %}<img class="lazyload" src="{{ section.settings.banner_img | img_url:'master' }}"
+                  data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                                                       >{% endif %}
+        <div class="banner-box">
+          <fieldset>
+            {% if section.settings.subtitle != blank %}<legend class="box-title">{{ section.settings.subtitle }}</legend>{% endif %}
+            {% if section.settings.title != blank %}<h4>{{ section.settings.title }}</h4>{% endif %}
+            {% if section.settings.text != blank %}<p>{{ section.settings.text }}</p>{% endif %}
+            {% if section.settings.shop_btn != blank %}<a class="btn primary-btn" href="{{ section.settings.shop_url }}">{{ section.settings.shop_btn }}</a>{% endif %}
+          </fieldset>
+        </div>
+	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Banner-image-with-text",
+    "settings": [
+    	{
+    		"type" : "image_picker",
+    		"id" : "banner_img",
+    		"label" : "Add Image"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "subtitle",
+    		"label" : "Add Subtitle"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "title",
+    		"label" : "Add Title"
+    	},
+    	{
+    		"type" : "richtext",
+    		"id" : "text",
+    		"label" : "Add Text"
+    	},
+    	{
+    		"type" : "url",
+    		"id" : "shop_url",
+    		"label" : "Add Button URL"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "shop_btn",
+    		"label" : "Add Button"
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Banner-image-with-text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

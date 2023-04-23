@@ -1,0 +1,27 @@
+{{ 'text.css' | asset_url | stylesheet_tag }}
+<section class="unique">
+  {% if section.settings.main_text != blank %}<span class="unique_text">{{ section.settings.main_text }}</span>{% endif %}
+</section>
+{% schema %}
+  {
+    "name": "text",
+    "settings": [
+      {
+          "type" : "text",
+          "id" : "main_text",
+          "label" : "Add text"
+      }
+    ],
+    "presets": [
+        {
+          "name":"text"
+        }
+      ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

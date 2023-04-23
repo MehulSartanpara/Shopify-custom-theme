@@ -1,0 +1,93 @@
+{% if  cart_icon %}
+<a href="" class="product-item--add-bag" {% if product.selected_or_first_available_variant.available == false %}style="opacity: 0.5;"{% endif %}>
+  {% render 'cart-icon' %}
+  {% comment %}
+    <img src="{{ 'shopping-bag 1.png' | asset_img_url: 'master' }}" {% if product.selected_or_first_available_variant.available == false %}style="opacity: 0.5;"{% endif %}/>
+  {% endcomment %}
+</a>
+{% endif %}
+{% if  enable_wishlist %}
+<a href="javascript:void(0);" class="product-item--add-wishlist whishlist-Icon" data-product-id="{{ product.handle }}">
+  {% render 'wishlist-icon' %}
+</a>
+{% endif %}
+{% if  enable_quick_view %}
+<span class="product--quick_view quick-view-button quick-view" data-handle="{{ product.handle }}">
+  {% render 'quick-view' %}
+</span>
+{% endif %}
+<a href="">
+    <div class="trending--item--image">
+      <a class="{% if product.media[1] != blank %}{% if show_second_img %}hover-featured_image{% endif %}{% endif %}" href="{{ product.url }}">
+        <img class="item-first-image lazyload" 
+          src="{{ product.featured_image | img_url: 'medium' | format: 'jpg' }}"
+          alt="{{ block.settings.slide_heading }}"
+           data-src="{{ img_url }}"
+           data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+           data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+           data-sizes="auto"
+          >
+        {% if product.media[1] != blank %}
+         <img class="item-second-image lazyload" 
+           src="{{ product.media[1] | img_url: 'medium' | format: 'jpg' }}" 
+           alt="{{ block.settings.slide_heading }}"
+           data-src="{{ img_url }}"
+           data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+           data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+           data-sizes="auto"
+           >
+        {% endif %}
+      </a>
+    </div>
+    <div class="trending--item--price">
+      <p class="product-item--price">{{ product.price | money }}</p>
+    </div> 
+    <div class="trending--item--title">
+      <p class="product-item--title">{{ product.title }}</p>
+    </div>
+    {% if  show_review %}
+    <div class="trending--item--review">
+    </div>
+    {% endif %}
+</a>       
+<div class="trending--item--add--to--cart">
+ <form method="post" action="/cart/add">
+           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+           <input type="hidden" name="quantity" value="1">
+           <input type="submit" value="{{ 'products.product.add_to_cart' | t }}" 
+             class="product-item--add-to-cart product-item--add-to-cart-- 
+            {% if product.selected_or_first_available_variant.available == false %}
+               disable--add-to-cart
+            {% endif %}" 
+            {% if product.selected_or_first_available_variant.available == false %} 
+               disabled 
+            {% endif %}
+            style="display: none;"
+          >
+    </form>
+  {% if section.settings.show_add_to_cart %}
+    <form method="post" action="/cart/add">
+           <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+            <input type="hidden" name="quantity" value="1">
+           <input type="submit" 
+            {% if product.selected_or_first_available_variant.available == false %}
+              value="{{ 'products.product.sold_out' | t }}" 
+            {% else %}
+                value="{{ 'products.product.add_to_cart' | t }}" 
+             {% endif %}
+             class="product-item--add-to-cart 
+            {% if product.selected_or_first_available_variant.available == false %}
+               disable--add-to-cart
+            {% endif %}" 
+            {% if product.selected_or_first_available_variant.available == false %} 
+               disabled 
+            {% endif %}
+          >
+    </form>
+  {% endif %}
+  {% if section.settings.show_view_more %}
+        <a href="{{ product.url }}" class="product-item--add-to-cart">View more</a> 
+  {% endif %}
+  
+</div>
+    

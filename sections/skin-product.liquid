@@ -1,0 +1,134 @@
+<section>
+  <div class="skin-products-container">
+    <div class="container">
+      <div class="skin-products-content">
+        <div class="skin-product-title">
+          <fieldset>
+            <legend class="trending--text--heading">
+              {% if section.settings.title != blank %}<h2 class="section--inner--heading">{{ section.settings.title }}</h2>{% endif %}
+            </legend>
+            <div class="trending--text--sub--heading">
+              {% if section.settings.sub_title != blank %}<span>{{ section.settings.sub_title }}</span>{% endif %}                
+            </div>
+          </fieldset>
+        </div>
+        <div class="skin-product-main">
+           <div class="skin-product-main-inner">
+             <div class="skin-product-main-inner-main-product">
+               {% assign num_product = section.settings.num_product %}
+              {% for product in collections[section.settings.feature_collection].products limit:num_product %}
+                <div class="skin-product-main-content product-item-hover">  
+                    <a href="{{ product.url }}">
+                      <div class="trending--item--image"> 
+                          <img class="item-first-image lazyload" src="{{ product.featured_image | img_url: 'medium' | format: 'jpg' }}" alt=""
+                            data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                            >   
+                            <div class="skin-product-buttons-container-inner">
+                              <div class="skin-product-buttons-container">
+                              <div class="skin-product-buttons-add-to-cart-icons {% if product.selected_or_first_available_variant.available == false %} disable--add-to-cart {% endif %}">
+                                 {% render 'cart-icon' %}
+                              </div>
+                              <div class="skin-product-buttons-view-more">
+                                <a href="{{ product.url }}" class="product-item--add-to-cart">View more</a>
+                                <form method="post" action="/cart/add">
+                                       <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+                                        <input type="hidden" name="quantity" value="1">
+                                       <input type="submit" value="" 
+                                         class="product-item--add-to-cart product-item--add-to-cart-- 
+                                        {% if product.selected_or_first_available_variant.available == false %}
+                                           disable--add-to-cart
+                                        {% endif %}" 
+                                        {% if product.selected_or_first_available_variant.available == false %} 
+                                           disabled 
+                                        {% endif %}
+                                        style="display: none;"
+                                      >
+                                   
+                                </form>
+                              </div>
+                              <div class="skin-product-buttons-wish-list whishlist-Icon" data-product-id="{{ product.handle }}">
+                                 {% render 'wishlist-icon' %}
+                              </div>
+                            </div>
+                          </div>
+                      </div>
+                    </a>
+                    <div class="trending--item--price">
+                      <p class="product-item--price">{{ product.price | money }}</p>
+                    </div> 
+                    <div class="trending--item--title">
+                      <p class="product-item--title">{{ product.title }}</p>
+                    </div>                       
+                    <div class="trending--item--review">
+                    </div>          
+                </div>
+              {% endfor %}
+            </div>
+           </div>
+        </div>
+        {% if section.settings.show_all %}
+          <div class="skin-product-view-more">
+            <a href="/collections/{{ section.settings.feature_collection }}" class="btn primary-btn">Shop All</a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Skin Products",
+    "settings": [
+            {
+              "type": "text",
+              "id": "title",
+              "label": "Title"
+            },
+            {
+              "type": "text",
+              "id": "sub_title",
+              "label": "Sub Title"
+            },
+        	{
+              "type": "collection",
+              "id": "feature_collection",
+              "label": "Select Collection"
+            },
+            {
+              "type": "range",
+              "id": "num_product",
+              "min": 1,
+              "max": 8,
+              "step": 1,
+              "label": "Number of product",
+              "default": 4
+            },
+            {
+              "type": "checkbox",
+              "id": "show_all",
+              "label": "Show Shop all button",
+              "default": true
+            }
+          
+            
+],
+"presets": [
+      {
+        "name": "Skin Products",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}
+
+

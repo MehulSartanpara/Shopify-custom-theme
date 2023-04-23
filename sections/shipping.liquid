@@ -1,0 +1,76 @@
+{{ 'shipping.css' | asset_url | stylesheet_tag }}
+<section class="shipping">
+	<div class="container">
+		<div class="shipping-detail">
+           {% for block in section.blocks %}
+            <div class="contant-main-div">
+    			<div class="shipping-info">
+                    {% if block.settings.shipping_img != blank %}
+    				<div class="shipping-img">
+                      <img src="{{ block.settings.shipping_img | img_url:'master' }}" class="lazyload"
+                       data-src="{{ img_url }}"
+                       data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                       data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                       data-sizes="auto"
+                        >
+    				</div>
+                    {% endif %}
+    				<div class="shipping-text">
+    					{% if block.settings.title != blank %}
+                          <h4>{{ block.settings.title }}</h4>
+                        {% endif %}
+    					{% if block.settings.ship_desc != blank %}
+                          <p>{{ block.settings.ship_desc }}</p>
+                        {% endif %}
+    				</div>
+    			</div>
+            </div>
+          {% endfor %}
+		</div>
+	</div>
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Shipping Section",
+    "settings": [
+		
+    ],
+    "blocks": [
+        {
+        "type": "block",
+        "name": "block", 		
+          "settings": [
+                {
+        			"type" : "image_picker",
+        			"id" : "shipping_img",
+        			"label" : "Add Image"
+        		},
+        		{
+        			"type" : "text",
+        			"id" : "title",
+        			"label" : "Add Title"
+        		},
+        		{
+        			"type" : "text",
+        			"id" : "ship_desc",
+        			"label" : "Add Text"
+        		}       		
+          ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Shipping Section"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

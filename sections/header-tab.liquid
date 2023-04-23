@@ -1,0 +1,80 @@
+<header-tab>
+  <div class="header-tab">
+    <div class="container--one">
+      <div class="header-tab-content">
+        <div class="header-tab--one">
+          <a href="/">
+            {% if section.settings.tab_logo != blank %}
+            <img src="{{ section.settings.tab_logo | img_url: 'master' }}" atr="Tab Logo">
+            {% else %}
+            <h2>{{section.settings.tab_link_name_1}}</h2>
+            {% endif %}
+          </a>
+        </div>
+        <div class="header-tab--two">
+          <a href="/pages/skin">
+            {% if section.settings.tab_logo2 != blank %}
+            <img src="{{ section.settings.tab_logo2 | img_url: 'master' }}" atr="Tab Logo">
+            {% else %}
+            <h2>{{section.settings.tab_link_name_2}}</h2>
+            {% endif %}
+          </a>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</header-tab>
+
+{% schema %}
+  {
+    "name": "header-tab",
+    "settings": [
+        {
+          "type": "header",
+          "content": "Left Side Tab"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_logo",
+          "label": "Insert Tab Logo"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_link_name_1",
+          "label": "Tab heading"
+        },
+        {
+          "type": "url",
+          "id": "tab_link_1",
+          "label": "link"
+        },
+        {
+          "type": "header",
+          "content": "Right Side Tab"
+        },
+        {
+          "type": "image_picker",
+          "id": "tab_logo2",
+          "label": "Insert Tab Logo"
+        },
+        {
+          "type": "textarea",
+          "id": "tab_link_name_2",
+          "label": "Tab heading"
+        },
+        {
+          "type": "url",
+          "id": "tab_link_2",
+          "label": "link"
+        }
+	
+],
+"presets": [
+      {
+        "name": "header-tab",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}

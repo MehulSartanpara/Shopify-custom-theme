@@ -1,0 +1,114 @@
+ section.faq {
+      padding: 110px 0 20px;
+  }
+  .faq .container {
+      max-width: 1150px;
+  }
+  .faq-info a {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 30px;
+      line-height: 30px;
+      color: #FFFFFF;
+      background-color: #000;
+      width: 100%;
+      border: 1px solid;
+      display: inline-block;
+      padding: 22px 60px;
+      margin-top: 40px;
+  }
+  .faq-info a.active {
+      color: #A55A56;
+      background-color: #FFE8E7;
+      border: 1px solid #A55A56;
+  }
+  .content {
+      padding-top: 30px;
+  }
+  .content h5 {
+      padding: 10px 0;
+      font-style: normal;
+      font-weight: 400;
+      font-size: 25px;
+      line-height: 30px;
+      color: #000000;
+      cursor: pointer;
+  }
+  .sub-content {
+      padding: 0 0 50px 45px
+  }
+  .sub-content h4 {
+      font-style: normal;
+      font-weight: 700;
+      font-size: 25px;
+      line-height: 30px;
+      color: #000000;
+      padding: 20px 0 20px;
+  }
+  .content p, .content li {
+      font-style: normal;
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 30px;
+      letter-spacing: 0.03em;
+      color: #000000;
+      margin-bottom: 21px;
+  }
+  .content h5 svg {
+      margin: 3px 30px 0 0;
+  }
+  ul.dummy-text {
+      list-style: inherit;
+      padding: 0 0 0 14px;
+  }
+  ul.dummy-text li {
+      padding-left: 13px;
+  }
+  ul.dummy-text li::marker {
+      font-size: 20px;
+  }
+
+  @media (max-width:1320px){
+      .faq-title .breadcrumbs{
+          left: 0;
+          right: 0;
+          margin: 0 auto;
+          text-align: center;
+          top: 160px;
+      }
+  }
+  @media (max-width:1024px){
+      .content h5{
+          font-size: 23px;
+      }
+  }
+  @media(max-width:767px){
+    section.faq {
+        padding: 22px 0 0px;
+    }
+    .faq-info a{
+        padding: 15px 20px;
+        font-size: 25px;
+        margin-top: 28px;
+    }
+    .content h5{
+        font-size: 20px;
+        display: flex;
+    }
+    .content h5 svg {
+        margin: 9px 10px 0 0;
+        height: 12px;
+        width: 20px;
+    }
+    .sub-content {
+        padding: 0 0 10px 0px;
+    }
+    .sub-content h4{
+        font-size: 20px;
+        padding: 10px 0 0px;
+    }
+    ul.dummy-text li {
+        padding-left: 0;
+    }
+  }
+  

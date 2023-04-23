@@ -1,0 +1,89 @@
+
+<section class="desktop-tabing">
+  <div class="container">
+    <div class="tab-container">
+    <div class="container-tab">
+          <ul class="tabs">
+            {% for block in section.blocks %}
+                  <li class="tab-link  {% if forloop.first == true %}current{% endif %}" data-tab="tab-{{ forloop.index}}">{{ block.settings.tab_name }}</li>
+            {% endfor %} 
+          </ul>
+    
+         {% for block in section.blocks %}
+          <div id="tab-{{ forloop.index}}" class="tab-content {% if forloop.first == true %}current{% endif %}">
+              <div class="tab--main--content">
+                  <div class="tab--main--text--content">
+                    <p>{{ block.settings.text }}</p>
+                  </div>
+              </div> 
+          </div>
+        {% endfor %}
+    </div>
+    </div>
+  </div>
+</section>
+
+<section class="mobile-acrodian">
+  <div class="container">
+    <div class="tab-container">
+      {% if section.settings.title != blank %}
+      <h2 class="about-title">{{ section.settings.title }}</h2>
+      {% endif %}
+    <div class="container-tab">
+          <ul class="tabs">           
+           <div id="accordion" class="accordion-container">
+             {% for block in section.blocks %}              
+                <h4 class="accordion-title js-accordion-title">{{ block.settings.tab_name }}</h4>
+              <div class="accordion-content">
+                <p>{{ product.metafields.custom.description }}</p>
+              </div>
+             {% endfor %}
+            </div>           
+          </ul>        
+    </div>
+    </div>
+  </div>
+</section>
+{% schema %}
+ {
+ 	"name": "Tabing",
+ 	"settings": [
+          {
+              "type": "text",
+              "id": "title",
+              "label": "Section title"
+          }	
+ 	],
+	"blocks": [
+        {
+        "type": "block",
+        "name": "block",
+          "settings": [
+          {
+              "type": "text",
+              "id": "tab_name",
+              "label": "Chose Tab Name"
+          },
+          {
+              "type": "html",
+              "id": "text",
+              "label": "Description"
+          }
+        ]
+      }
+    ],
+ 		"presets": [
+ 		{
+ 			"name": "Tabing",
+ 			"category": "text"
+ 		}
+ 	]
+ }
+{% endschema %}
+
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

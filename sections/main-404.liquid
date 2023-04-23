@@ -1,0 +1,46 @@
+<style type="text/css">
+  .template-404 .title + * {
+    margin-top: 1rem;
+  }
+
+ 
+  .four-zero-four-inner--container .title {
+    margin-bottom: 50px;
+    font-size: 28px;
+    margin-top: 20px;
+}
+  .four-zero-four-inner--container {
+    text-align: center;
+    padding-bottom: 160px;
+}
+  .four-zero-four-inner--container a {
+    display: inline-block;
+    margin: 40px 0;
+    font-size: 23px;
+}
+   @media screen and (max-width: 750px) {
+    .template-404 .title + * {
+      margin-top: 2rem;
+    }
+    .four-zero-four-inner--container .title {
+    margin-bottom: 30px;
+    font-size: 18px;
+    margin-top: 12px;
+}
+  }
+</style>
+<div class="container">
+ <div class="four-zero-four-inner--container">
+  <div class="template-404 page-width page-margin center">
+    <div class="about-title">
+      <h2>{{ 'templates.404.subtext' | t }}</h2>
+    </div>
+    <h1 class="title">
+      {{ 'templates.404.title' | t }}
+    </h1>
+    <a href="{{ routes.all_products_collection_url }}" class="button btn primary-btn">
+      {{ 'general.continue_shopping' | t }}
+    </a>
+  </div>
+ </div>
+</div>

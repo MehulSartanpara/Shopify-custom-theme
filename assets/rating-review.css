@@ -1,0 +1,93 @@
+.rating-review {
+      position: relative;
+  }
+  .rating-review .trending--text {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+  .rating-review .trending--item {
+      flex: 0 0 100%;
+      max-width: 100%;
+  }
+  .rating-review .slick-list{
+      padding: 0;
+  }
+  .rating-review .customer-review{
+      padding-top: 65px;
+      padding-bottom: 185px;
+  }
+  .rating-review .trending--text--max-width{
+      max-width: 570px;
+      margin: 0 auto 65px;
+      text-align: center;
+  }
+  .rating-review .customer-review-content{
+      max-width: calc(100% - 80px);
+      margin: 0 40px;
+  }
+  .rating-review .section--inner--heading{
+      margin-bottom: 10px;
+  }
+  .rating-review .trending--text--sub--heading{
+      margin: 10px 0 20px;
+  }
+  .rating-review .trending--text--button {
+      margin-bottom: 30px;
+  }
+  .rating-review .sub-img, .rating-review .subs-img{
+      max-width: 250px;
+  }
+  .rating-review img.sub-img {
+      position: absolute;
+      top: 0;
+      right: 0;
+  }
+  .rating-review img.subs-img {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+  }
+  @media (max-width:1440px){
+    .rating-review .sub-img, .rating-review .subs-img {
+        max-width: 100px;
+    }
+  }
+  @media (max-width:767px){
+    .rating-review .sub-img, .rating-review .subs-img {
+        max-width: 70px;
+    }
+    .rating-review .customer-review {
+        padding-top: 50px;
+        padding-bottom: 112px;
+    }
+    .rating-review .trending--text--max-width {
+        max-width: 320px;
+        margin: 0 auto 0;
+    }
+    .rating-review .trending--text--sub--heading {
+        margin: 0;
+    }
+    .rating-review .customer-review-content {
+        max-width: calc(100% - 30px);
+        margin: 0 15px;
+    }
+    .rating-review .trending--text--sub--heading span{
+        font-size: 15px;
+        line-height: 30px;
+    }
+    .rating-review .section--inner--heading {
+        margin-bottom: 0px;
+    }
+    .rating-review .trending--text--button {
+        margin-bottom: 10px;
+    }
+    .rating-review .customer-review-rating img{
+        height: 10px;
+        width: 10px;
+    }
+    .rating-review .customer-review-rating span{
+        font-size: 15px;
+        line-height: 16px;
+    }
+  }
+  

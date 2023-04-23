@@ -1,0 +1,301 @@
+{{ 'rating-review.css' | asset_url | stylesheet_tag }}
+<section>
+	<div class="rating-review">
+	  <div class="customer-review">
+	    <div class="trending-item-container">
+	      <div class="container">
+	        <div class="trending-item-content">
+              {% if section.settings.sub_img != blank %}<img class="sub-img lazyload" src="{{ section.settings.sub_img | img_url: 'master' }}" 
+                                                          data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                                                          />{% endif %}
+              {% if section.settings.sub_img2 != blank %}<img class="subs-img lazyload" src="{{ section.settings.sub_img2 | img_url: 'master' }}" 
+                                                           data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                                                           />{% endif %}
+	          <div class="trending--text">
+	            <div class="trending--text--max-width">
+                <fieldset>
+    	            {% if section.settings.title != blank %}
+    	              <legend class="trending--text--heading">
+                     	<h2 class="section--inner--heading">{{ section.settings.title }}</h2>
+    	              </legend>
+    	            {% endif %}
+    	            {% if section.settings.sub_heading != blank %}
+    	              <div class="trending--text--sub--heading">
+    	                <span>{{ section.settings.sub_heading }}</span>                
+    	              </div>
+    	            {% endif %}
+    	            {% if section.settings.rich_text != blank %}
+    	              <div class="trending--text--text">
+    	                <p class="section--inner--sub--text">{{ section.settings.rich_text }}</p>
+    	              </div>
+    	            {% endif %}
+    	            <div class="trending--text--button">
+    	            {% if section.settings.star_1 != blank %}
+    	              <div class="customer-review-rating">
+    	                {% assign star = section.settings.details22 %}
+    	                {% for i in (1..star) %}
+    	                  <img class="lazyload" style="max-width:25px; margin-right: 0;" src="{{ section.settings.star_1 | img_url: 'master' }}" 
+                            data-src="{{ img_url }}"
+                             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                             data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                             data-sizes="auto"
+                            />
+    	                {% endfor %}
+    	                <span>{{ section.settings.rating }}</span>
+    	              </div>
+    	            {% endif %}
+    	            </div>
+                </fieldset>
+	          </div>
+	          </div>
+	          <div class="trending--item">
+	            <div class="trending--item--box customer-review-content-slider"
+	              data-dots="{{ section.settings.Review_show_dots }}"
+	              data-arrow="{{ section.settings.Review_show_arrows }}"
+	              data-infinite="{{ section.settings.Review_infinite }}"
+	              data-side-show="{{ section.settings.side-show }}"
+	              >
+	              {% for block in section.blocks %} 
+	                <div class="trending--item--col customer-review-content">
+	                    <div class="shop--categories--list">
+	                      {% if block.settings.star != blank %}
+	                      <div class="shop--categories--list--title">
+	                       {% assign limit_rating = block.settings.limit_rating %}
+	                        {% for i in (1..limit_rating) %}
+	                          <img class="lazyload" style="max-width:25px; margin-right: 0;display: unset;" src="{{ block.settings.star | img_url: 'master' }}" 
+                                data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                                />
+	                        {% endfor %}
+	                      </div>
+	                      {% endif %}
+	                      <div class="shop--categories--list--img">
+	                      {% if block.settings.text != blank %}
+	                        <p class="section--inner--sub--text">{{ block.settings.text }}</p>
+	                      {% endif %}
+	                      </div>
+	                      <div class="shop--categories--list--qty">
+	                        <div class="customer-review-main">
+	                          {% if block.settings.user != blank %}
+	                          <div class="customer--review--images">
+	                            <img class="lazyload" src="{{ block.settings.user | img_url: 'master' }}" 
+                                  data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                                  />
+	                          </div>
+	                          {% endif %}
+	                          <div class="customer--review--nanme">
+	                            {% if block.settings.name != blank %}<span>{{ block.settings.name }}</span>{% endif %}
+	                            {% if block.settings.sub_name != blank %}<p>{{ block.settings.sub_name }}</p>  {% endif %}                          
+	                          </div>
+	                        </div>
+	                      </div>
+	                    </div>
+	                </div>
+	              {% endfor %}
+	            </div>
+	          </div>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+  	</div>
+</section>
+
+{% schema %}
+  {
+    "name": "Rating-review",
+    "settings": [
+       {
+        "type": "image_picker",
+        "id": "sub_img",
+        "label": "Add Image"
+      },
+       {
+        "type": "image_picker",
+        "id": "sub_img2",
+        "label": "Add Image"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "heading"
+      },
+      {
+        "type": "text",
+        "id": "sub_heading",
+        "label": "sub heading"
+      },
+      {
+        "type": "richtext",
+        "id": "rich_text",
+        "label": "text"
+      },
+      {
+        "type": "select",
+        "id": "details22",
+        "label": "Select Rating",
+        "options": [
+          {
+            "value": "1",
+            "label": "1"
+          },
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          }
+        ],
+        "default": "2"
+      },
+      {
+        "type": "image_picker",
+        "id": "star_1",
+        "label": "Rating"
+      },
+      {
+        "type": "text",
+        "id": "rating",
+        "label": "Rating text"
+      },
+      {
+        "type": "checkbox",
+        "id": "Review_show_dots",
+        "label": "Show Dots In Slider",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "Review_show_arrows",
+        "label": "Show Arrows In Slider",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "Review_infinite",
+        "label": "Show infinite Product In Slider",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "side-show",
+        "label": "Select Slide to Show",
+        "options": [
+          {
+            "value": "2",
+            "label": "2"
+          },
+          {
+            "value": "3",
+            "label": "3"
+          },
+          {
+            "value": "4",
+            "label": "4"
+          },
+          {
+            "value": "5",
+            "label": "5"
+          }
+        ],
+        "default": "3"
+      }
+      
+      
+],
+	"blocks": [
+        {
+        "type": "block",
+        "name": "block",
+          "settings": [
+            {
+              "type": "select",
+              "id": "limit_rating",
+              "label": "Select Rating",
+              "options": [
+                {
+                  "value": "1",
+                  "label": "1"
+                },
+                {
+                  "value": "2",
+                  "label": "2"
+                },
+                {
+                  "value": "3",
+                  "label": "3"
+                },
+                {
+                  "value": "4",
+                  "label": "4"
+                },
+                {
+                  "value": "5",
+                  "label": "5"
+                }
+              ],
+              "default": "3"
+            },
+            {
+              "type": "image_picker",
+              "id": "star",
+              "label": "Rating"
+            },
+            {
+         		"type": "richtext",
+         		"id": "text",
+         		"label": "Text"
+         	},
+            {
+              "type": "image_picker",
+              "id": "user",
+              "label": "User image"
+            },
+         	{
+         		"type": "text",
+         		"id": "name",
+         		"label": "User name"
+            },
+            {
+         		"type": "text",
+         		"id": "sub_name",
+         		"label": "User name"
+            }
+          ]
+        }
+    ],
+	"presets": [
+      {
+        "name": "Rating-review",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

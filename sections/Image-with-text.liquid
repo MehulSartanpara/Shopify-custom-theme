@@ -1,0 +1,99 @@
+<section class="cosmetics">
+	<div class="container">
+		<div class="main-cosmetics">
+			<div class="abduct-cosmetics">
+				{% for block in section.blocks %}
+					<div class="main-content-layout main--content--{{ block.id }}">
+						{% capture text %}
+							<div class="cosmetics-img">
+								{% if block.settings.cosmetics_img != blank %}<img src="{{ block.settings.cosmetics_img | img_url:'master' }}">{% endif %}
+							</div>
+						{% endcapture %}
+						<div class="main-cosmetics-content-layout {% if block.settings.layout == 'left' %}left{% else %}right{% endif %}"></div>
+						{% if block.settings.layout == 'left' %}
+	                        {{text}}
+	                            {% endif %}
+									<div class="cosmetics-text text-end-{{ block.id }}">
+										{% if block.settings.story_img != blank %}<img src="{{ block.settings.story_img | img_url:'master' }}" class="story-img">{% endif %}
+										{% if block.settings.story != blank %}<span class="story-text">{{ block.settings.story }}</span>{% endif %}
+										{% if block.settings.cosmetics_title != blank %}<h2 class="section--inner--heading">{{ block.settings.cosmetics_title }}</h2>{% endif %}
+										{% if block.settings.cosmetics_text != blank %}<p class="section--inner--sub--text">{{ block.settings.cosmetics_text }}</p>{% endif %}
+									</div>
+									{% if block.settings.layout == 'right' %}
+	                        {{text}}
+	                    {% endif %}
+                    </div>
+				{% endfor %}
+			</div>
+		</div>
+	</div>
+</section>
+
+
+
+{% schema %}
+  {
+    "name": "Image with Text",
+    "settings": [],
+    "blocks": [
+      {
+        "type": "Image",
+        "name": "Main Cosmetics",
+        "settings": [
+	        {
+	    		"type" : "image_picker",
+	    		"id" : "cosmetics_img",
+	    		"label" : "Add Image"
+	    	},
+	    	{
+	    		"type" : "image_picker",
+	    		"id" : "story_img",
+	    		"label" : "Add Image"
+	    	},
+	    	{
+	    		"type" : "text",
+	    		"id" : "story",
+	    		"label" : "Add Sub Text"
+	    	},
+	    	{
+	    		"type" : "text",
+	    		"id" : "cosmetics_title",
+	    		"label" : "Add Title"
+	    	},
+	    	{
+	    		"type" : "richtext",
+	    		"id" : "cosmetics_text",
+	    		"label" : "Add Text"
+	    	},
+          {
+            "type": "select",
+            "id": "layout",
+            "label": "Layout",
+            "default": "left",
+            "options": [
+              {
+                "value": "left",
+                "label": "Image on left"
+              },
+              {
+                "value": "right",
+                "label": "Image on right"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "presets": [
+      {
+        "name":"Image with Text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

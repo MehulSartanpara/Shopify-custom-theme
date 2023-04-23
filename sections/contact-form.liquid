@@ -1,0 +1,55 @@
+{{ 'contact-form.css' | asset_url | stylesheet_tag }}
+<section class="contact-form">
+  <div class="main-contact-detail">
+	<div class="bg-image">
+      {% if section.settings.bg_img != blank %}<img src="{{ section.settings.bg_img | img_url:'master' }}">{% endif %}
+    </div>
+    <div class="form-detail">
+        <div class="form-info">
+            {% if section.settings.form_title != blank %}<h2 class="section--inner--heading">{{ section.settings.form_title }}</h2>{% endif %}
+            {% if section.settings.form_desc != blank %}<p>{{ section.settings.form_desc }}</p>{% endif %}
+             {%- form 'contact', id: 'ContactForm', class: 'isolate' -%}
+                <input type="text" name="customer[first_name]" id="RegisterForm-FirstName" {% if form.first_name %}value="{{ form.first_name }}"{% endif %} autocomplete="given-name" placeholder="{{ 'templates.contact.form.first_name' | t }}">
+                <input type="text" name="customer[last_name]" id="RegisterForm-LastName" {% if form.last_name %}value="{{ form.last_name }}"{% endif %} autocomplete="family-name" placeholder="{{ 'templates.contact.form.last_name' | t }}">
+                <input type="email" name="contact[email]" placeholder="{{ 'templates.contact.form.email' | t }}" autocomplete="email" id="ContactForm-email" class="field__input" spellcheck="false" autocapitalize="off" value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}" aria-required="true" {% if form.errors contains 'email' %}aria-invalid="true" aria-describedby="ContactForm-email-error"{% endif %}>
+                <textarea placeholder="{{ 'templates.contact.form.comment' | t }}" id="ContactForm-body" class="text-area field__input"></textarea>
+                <button type="submit" name="contact[{{ 'templates.contact.form.comment' | t }}]" class="btn primary-btn">{{ 'templates.contact.form.send' | t }}</button>
+            {%- endform -%}
+        </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+  {
+    "name": "Contact-form",
+    "settings": [
+    	{
+    		"type" : "image_picker",
+    		"id" : "bg_img",
+    		"label" : "Add Background Image"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "form_title",
+    		"label" : "Add Title"
+    	},
+    	{
+    		"type" : "text",
+    		"id" : "form_desc",
+    		"label" : "Add Text"
+    	}
+    ],
+    "presets": [
+      {
+        "name":"Contact-form"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

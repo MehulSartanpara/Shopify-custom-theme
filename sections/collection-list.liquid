@@ -1,0 +1,165 @@
+<section>
+  <div class="shop-by-categories">
+    <div class="trending-item-container">
+      <div class="container">
+        <div class="trending-item-content">
+          <div class="trending--text">
+            <div class="trending--text--max-width">
+            {% if section.settings.sub_heading != blank %}
+              <div class="trending--text--sub--heading">
+                {% if section.settings.sub_img != blank %}
+                  <img src="{{ section.settings.sub_img | img_url: 'master' }}" class="lazyload"
+                    data-src="{{ img_url }}"
+                   data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                   data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                   data-sizes="auto"
+                    />
+                {% endif %}
+                <span>{{ section.settings.sub_heading }}</span>                 
+              </div>
+            {% endif %}
+            {% if section.settings.title != blank %}
+              <div class="trending--text--heading">
+                 <h2 class="section--inner--heading">{{ section.settings.title }}</h2>
+              </div>
+            {% endif %}
+            {% if section.settings.rich_text != blank %}
+              <div class="trending--text--text">
+                <p class="section--inner--sub--text">{{ section.settings.rich_text }}</p>
+              </div>
+            {% endif %}
+            <div class="trending--text--button">
+            {% if section.settings.btn_text != blank %}
+              <div class="banner-button">
+                    <a href="{{ section.settings.btn_link }}" class="btn primary-btn">{{ section.settings.btn_text }}</a>
+              </div>
+            {% endif %}
+            </div>
+            </div>
+          </div>
+          <div class="trending--item">
+            <div class="trending--item--box shop-by-categories-content"
+              data-dots="{{ section.settings.collection_show_dots }}"
+              data-arrow="{{ section.settings.collection_show_arrows }}"
+              data-infinite="{{ section.settings.collection_infinite }}"
+              >
+              {% for block in section.blocks %} 
+                <div class="trending--item--col shop-by-categories-list">
+                  {% assign collection = block.settings.collection %}
+                    <div class="shop--categories--list">
+                      <div class="shop--categories--list--title">                      
+                        <p class="shop--categoriy--list--title"><a href="{{ collection.url }}">{{ collection.title }}</a></p>                   
+                      </div>                      
+                      <div class="shop--categories--list--img ">
+                        <a href="{{ collection.url }}">
+                          {% if block.settings.coll_image != blank %}
+                           <img src="{{ block.settings.coll_image | img_url: 'master' }}" class="shop--categories-list-img lazyload"
+                             data-src="{{ img_url }}"
+                             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                             data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                             data-sizes="auto"
+                             />
+                          {% else %}
+                           <img src="{{ collection.featured_image | img_url: 'master' }}" class="shop--categories-list-img lazyload"
+                             data-src="{{ img_url }}"
+                             data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                             data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                             data-sizes="auto"
+                             />
+                          {% endif %}
+                        </a>
+                      </div>                    
+                      <div class="shop--categories--list--qty">                    
+                        <p class="shop--categoriy-list-qty">{{ collection.products_count }} ITEM</p>                  
+                      </div>
+                    </div>
+                </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+{% schema %}
+  {
+    "name": "collection-list",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "sub_img",
+        "label": "Imgaes"
+      },
+      {
+        "type": "text",
+        "id": "sub_heading",
+        "label": "sub heading"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "heading"
+      },
+      {
+        "type": "richtext",
+        "id": "rich_text",
+        "label": "text"
+      },
+       {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button link"
+      },
+      {
+        "type": "checkbox",
+        "id": "collection_show_dots",
+        "label": "Show Dots In Slider",
+        "default": false
+     },
+      {
+        "type": "checkbox",
+        "id": "collection_show_arrows",
+        "label": "Show Arrows In Slider",
+        "default": false
+     },
+      {
+        "type": "checkbox",
+        "id": "collection_infinite",
+        "label": "Show infinite Product In Slider",
+        "default": false
+     }
+],
+	"blocks": [
+        {
+        "type": "block",
+        "name": "block",
+          "settings": [
+            {
+              "type": "collection",
+              "id": "collection",
+              "label": "Collection"
+            },
+            {
+              "type": "image_picker",
+              "id": "coll_image",
+              "label": "Insert Collection Banner Image"
+            }
+          ]
+        }
+    ],
+"presets": [
+      {
+        "name": "collection-list",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}

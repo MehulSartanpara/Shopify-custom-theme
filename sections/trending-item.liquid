@@ -1,0 +1,186 @@
+<section>
+  <div class="trending-item">
+    <div class="trending-item-container">
+      <div class="container">
+        <div class="trending-item-content">
+          <div class="trending--text">
+            <div class="trending--text--max-width">
+            {% if section.settings.sub_heading != blank %}
+              <div class="trending--text--sub--heading">
+                 {% if section.settings.sub_img != blank %}
+                   <img src="{{ section.settings.sub_img | img_url: 'master' }}" class="lazyload" 
+                     data-src="{{ img_url }}"
+                     data-widths="[180, 360, 540, 720, 900, 1080, 1296, 1512, 1728, 2048]"
+                     data-aspectratio="{{ section.settings.image.aspect_ratio }}"
+                     data-sizes="auto" 
+                    />
+                 {% endif %}
+                <span>{{ section.settings.sub_heading }}</span>                
+              </div>
+            {% endif %}
+            {% if section.settings.title != blank %}
+              <div class="trending--text--heading">
+                 <h2 class="section--inner--heading">{{ section.settings.title }}</h2>
+              </div>
+            {% endif %}
+            {% if section.settings.rich_text != blank %}
+              <div class="trending--text--text">
+                <p class="section--inner--sub--text">{{ section.settings.rich_text }}</p>
+              </div>
+            {% endif %}
+            <div class="trending--text--button">
+            {% if section.settings.btn_text != blank %}
+              <div class="banner-button">
+                    <a href="{{ section.settings.btn_link }}" class="btn primary-btn">{{ section.settings.btn_text }}</a>
+              </div>
+            {% endif %}
+            </div>
+            </div>
+          </div>
+          <div class="trending--item">  
+            <div class="trending--item--box trending--item--slider" 
+              data-banner-dots="{{ section.settings.trending_show_dots }}"
+              data-banner-arrow="{{ section.settings.trending_show_arrows }}"
+              data-banner-infinite="{{ section.settings.trending_infinite }}"
+              >
+              {% assign collection = section.settings.collection %}
+              {% assign limit = section.settings.limit %}
+              {% for product in  collection.products limit:limit %}
+               <div class="trending--item--col  product-item-hover">
+                {% render 'card-product', 
+                  product:product,
+                  cart_icon : section.settings.cart_icon,
+                  show_second_img : section.settings.show_second_img,
+                  enable_wishlist: section.settings.enable_wishlist,
+                  enable_quick_view: section.settings.enable_quick_view
+                %}    
+               </div>
+              {% endfor %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{{ 'trending-item.css' | asset_url | stylesheet_tag }}
+
+{% schema %}
+  {
+    "name": "Trending item",
+    "settings": [
+      {
+        "type": "image_picker",
+        "id": "sub_img",
+        "label": "Imgaes"
+      },
+      {
+        "type": "text",
+        "id": "sub_heading",
+        "label": "sub heading"
+      },
+      {
+        "type": "text",
+        "id": "title",
+        "label": "heading"
+      },
+      {
+        "type": "richtext",
+        "id": "rich_text",
+        "label": "text"
+      },
+       {
+        "type": "text",
+        "id": "btn_text",
+        "label": "Button text"
+      },
+      {
+        "type": "url",
+        "id": "btn_link",
+        "label": "Button link"
+      },
+  	  {
+        "type": "checkbox",
+        "id": "cart_icon",
+        "label": "Enable Cart Icon",
+        "default": true
+      },
+      {
+      "type": "checkbox",
+      "id": "enable_wishlist",
+      "label": "Enable Wishlist icon",
+      "default": true
+      },
+  	  {
+        "type": "checkbox",
+        "id": "show_second_img",
+        "label": "Show second image on hover",
+        "default": true
+      },
+  	  {
+        "type": "checkbox",
+        "id": "show_add_to_cart",
+        "label": "Show add to cart button",
+        "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "show_view_more",
+        "label": "Show view more button",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "enable_quick_view",
+        "label": "Enable Quick View",
+        "default": false
+     },
+      {
+        "type": "collection",
+        "id": "collection",
+        "label": "Select Collection"
+      },
+      {
+        "type": "range",
+        "id": "limit",
+        "min": 0,
+        "max": 10,
+        "step": 1,
+        "label": "Select Number Of Product Show",
+        "default": 3
+      },
+      {
+        "type": "checkbox",
+        "id": "trending_show_dots",
+        "label": "Show Dots In Slider",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "trending_show_arrows",
+        "label": "Show Arrows In Slider",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "trending_infinite",
+        "label": "Show infinite Product In Slider",
+        "default": false
+      }
+],
+ 
+"presets": [
+      {
+        "name": "Trending item",
+        "category": "text"
+      }
+    ]
+  }
+{% endschema %}
+
+{% stylesheet %}
+{% endstylesheet %}
+
+{% javascript %}
+{% endjavascript %}

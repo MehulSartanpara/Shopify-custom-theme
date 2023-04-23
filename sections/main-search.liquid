@@ -1,0 +1,122 @@
+{%- liquid
+  assign sort_by = search.sort_by | default: search.default_sort_by
+  assign terms = search.terms | escape
+  assign search_url = '?q=' | append: terms | append: '&options%5Bprefix%5D=last&sort_by=' | append: sort_by
+-%}
+<div class="main--search--section">
+  <div class="container">
+      {%- if search.performed -%}
+        <h1 class="h2">{{ 'templates.search.title' | t }}</h1>
+      {%- else -%}
+        <h1 class="h2">{{ 'general.search.search' | t }}</h1>
+      {%- endif -%}
+      <div class="search-modal modal__content gradient" role="dialog" aria-modal="true" aria-label="{{ 'general.search.search' | t }}">
+        <div class="search-modal__content{% if settings.inputs_shadow_vertical_offset != 0 and settings.inputs_shadow_vertical_offset < 0 %} search-modal__content-top{% else %} search-modal__content-bottom{% endif %}" tabindex="-1">
+          <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+            <predictive-search>
+              <form action="{{ routes.search_url }}" method="get" role="search">
+                <input
+                  id="Search"
+                  type="text"
+                  placeholder="Search"
+                  name="q"
+                  value="{{ search.terms | escape }}"
+                    role="combobox"
+                    aria-expanded="false"
+                    aria-owns="predictive-search-results-list"
+                    aria-controls="predictive-search-results-list"
+                    aria-haspopup="listbox"
+                    aria-autocomplete="list"
+                    autocorrect="off"
+                    autocomplete="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                >
+                <input name="options[prefix]" type="hidden" value="last">
+            
+                  <div id="predictive-search" tabindex="-1"></div>
+
+                <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">  
+                  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" style="fill:#fff;" width="28px" height="28px" version="1.1" id="Capa_1" x="0px" y="0px" viewBox="0 0 487.95 487.95" style="enable-background:new 0 0 487.95 487.95;" xml:space="preserve"><g><g><path d="M481.8,453l-140-140.1c27.6-33.1,44.2-75.4,44.2-121.6C386,85.9,299.5,0.2,193.1,0.2S0,86,0,191.4s86.5,191.1,192.9,191.1    c45.2,0,86.8-15.5,119.8-41.4l140.5,140.5c8.2,8.2,20.4,8.2,28.6,0C490,473.4,490,461.2,481.8,453z M41,191.4    c0-82.8,68.2-150.1,151.9-150.1s151.9,67.3,151.9,150.1s-68.2,150.1-151.9,150.1S41,274.1,41,191.4z"/></g></g></svg>
+                </button>
+              </form>
+            </predictive-search>
+        </div>
+      </div>
+    {%- if search.results.size == 0 -%}
+          <div class="template-search__results collection collection--empty{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}" id="product-grid" data-id="{{ section.id }}">
+            <div class="loading-overlay gradient"></div>
+            <div class="title-wrapper center">
+              <h2 class="title title--primary">
+                {{ 'sections.collection_template.empty' | t }}<br>
+                {{ 'sections.collection_template.use_fewer_filters_html' | t: link: search_url, class: "underlined-link link" }}
+              </h2>
+            </div>
+          </div>
+      {%- else -%}
+        {% paginate search.results by 24 %}
+          <div class="template-search__results collection{% if section.settings.filter_type != 'vertical' %} page-width{% endif %}" id="product-grid" data-id="{{ section.id }}">
+            <div class="collection--page--product--main">
+              {%- for item in search.results -%}
+                {% assign lazy_load = false %}
+                {%- if forloop.index > 2 -%}
+                  {%- assign lazy_load = true -%}
+                {%- endif -%}
+
+                <div class="search grid__item">
+                  {%- case item.object_type -%}
+                    {%- when 'product' -%}
+                      {%- capture product_settings -%}{%- if section.settings.product_show_vendor -%}vendor,{%- endif -%}title,price{%- endcapture -%}
+                      {% render 'card-product',
+                        product:item,
+                        cart_icon: section.settings.cart_icon,
+                        show_second_img: section.settings.show_second_img,
+                        enable_wishlist: section.settings.enable_wishlist,
+                        enable_quick_view: section.settings.enable_quick_view
+                      %}
+                    {%- when 'article' -%}
+                      {% render 'article-card',
+                        article: item,
+                        show_image: true,
+                        show_date: section.settings.article_show_date,
+                        show_author: section.settings.article_show_author,
+                        show_badge: true,
+                        media_aspect_ratio: 1,
+                        lazy_load: lazy_load
+                      %}
+                    {%- when 'page' -%}
+                      <div class="card-wrapper underline-links-hover">
+                        <div class="card card--card card--text ratio color-{{ settings.card_color_scheme }}" style="--ratio-percent: 100%;">
+                            <div class="card__content">
+                              <div class="card__information">
+                                <h3 class="card__heading">
+                                  <a href="{{ item.url }}" class="full-unstyled-link">
+                                    {{ item.title | truncate: 50 | escape }}
+                                  </a>
+                                </h3>
+                              </div>
+                              <div class="card__badge {{ settings.badge_position }}">
+                                <span class="badge color-background-1">{{ 'templates.search.page' | t }}</span>
+                              </div>
+                            </div>
+                        </div>
+                      </div>
+                  {%- endcase -%}
+                </div>
+              {%- endfor -%}
+            </div>
+            {%- if paginate.pages > 1 -%}
+              {% render 'pagination', paginate: paginate %}
+            {%- endif -%}
+          </div>
+        </div>
+        {% endpaginate %}
+      {%- endif -%}
+  </div>
+</div>
+{% schema %}
+  {
+    "name": "main-search",
+    "settings": []
+  }
+{% endschema %}

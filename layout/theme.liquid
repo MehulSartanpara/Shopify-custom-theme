@@ -1,0 +1,95 @@
+<!doctype html>
+<html class="no-js supports-no-cookies" lang="{{ request.locale.iso_code }}">
+<head>
+  
+   <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    {%- unless settings.type_header_font.system? and settings.type_body_font.system? -%}
+      <link rel="preconnect" href="https://fonts.shopifycdn.com" crossorigin>
+    {%- endunless -%}
+
+    <script src="{{ 'jquery.js' | asset_url }}"></script>
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preload" href="{{ 'lazysizes.js' | asset_url }}" as="script">
+    
+    {{ 'option_selection.js' | shopify_asset_url | script_tag }}
+    
+    {{ 'style.css' | asset_url | stylesheet_tag }}
+    
+    {{ 'theme.js' | asset_url | script_tag }}
+
+     <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
+     <script src="{{ 'lazysizes.js' | asset_url }}" async="async"></script>
+  
+    <script>
+      let slick_property = {
+        left_arrow: '//cdn.shopify.com/s/files/1/0617/0571/5918/t/15/assets/preve-arrow.png?v=143572884859136894561660120454',
+        right_arrow: '//cdn.shopify.com/s/files/1/0617/0571/5918/t/15/assets/next-arrow%20(2).png?v=15314114817226846261660120454'
+      }
+      $('img').addClass('lazyloaded');
+    </script>
+    
+    {% style %}
+    :root {
+        --container_width: {{ settings.container_width }}px;
+        --main-btn-color: {{ settings.main-btn-color }};
+        --main-btn-border-color: {{ settings.main-btn-border-color }};
+        --main-btn-font: {{ settings.main-btn-font }}px;
+        --main-btn-font-color: {{ settings.main-btn-font-color }};
+        --main-btn-hover-color: {{ settings.main-btn-hover-color }};
+        --font-body-family: {{ settings.type_body_font.family }};
+      }
+      .fancybox-margin {
+    margin-right: 0 !important;
+}
+    {% endstyle %}
+    
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    {% render 'meta-tags' %}
+  
+   {{ content_for_header }}
+
+    <link rel="stylesheet" href="{{ 'component-predictive-search.css' | asset_url }}" media="print" onload="this.media='all'">
+
+
+<!-- Quick View   -->
+    {{ '//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.min.css' | stylesheet_tag }}
+    {{ 'quickview.css' | asset_url | stylesheet_tag }} 
+    {{ 'quickview.js' | asset_url | script_tag }}
+
+<script>
+  {% capture content %}{% include 'quickview' %}{% endcapture %}
+  var content = {{ content | json }};
+</script>
+ 
+</head>
+
+<body id="{{ page_title | handle }}" class="template-{{ template.name | handle }}">
+  <div class="ooverlay"></div>
+      {% section 'announcement' %}
+      {% section 'header-tab' %}
+      {% section 'header' %}
+		{{ content_for_layout }}
+      {% section 'footer' %}
+
+</body>
+</html>
